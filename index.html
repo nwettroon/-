@@ -144,11 +144,14 @@ function checkOtherFormats(img) {
     }
 
     function showModal(name, img, content) {
-        document.getElementById('modalTitle').innerText = name;
-        document.getElementById('modalImg').src = img;
-        document.getElementById('modalSizes').innerHTML = content;
-        document.getElementById('itemModal').style.display = "flex";
-    }
+    const modal = document.getElementById('itemModal');
+    document.getElementById('modalTitle').innerText = name;
+    document.getElementById('modalImg').src = img;
+    document.getElementById('modalSizes').innerHTML = content;
+    
+    // إظهار النافذة وتفعيل خاصية التوسيط
+    modal.style.display = "flex";
+}
 
     function closeModal() { document.getElementById('itemModal').style.display = "none"; }
     window.onclick = function(e) { if(e.target.className == 'modal') closeModal(); }
@@ -159,6 +162,7 @@ function checkOtherFormats(img) {
 
 </body>
 </html>
+
 
 
 
