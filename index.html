@@ -14,9 +14,30 @@
     </header>
 
     <div class="restaurant-info">
-        <img src="images/logo.jpg" alt="الشعار" class="logo" onerror="this.src='images/logo.png'">
-        <h1>ثمرة المذاق المنعش</h1>
-    </div>
+    <img src="images/logo.jpg" id="mainLogo" class="logo" 
+         onerror="checkOtherFormats(this)">
+    <h1>ثمرة المذاق المنعش</h1>
+</div>
+
+<script>
+function checkOtherFormats(img) {
+    // قائمة بالأسماء المحتملة التي قد تكون رفعتها
+    const paths = [
+        'images/logo.png',
+        'images/Logo.jpg',
+        'images/Logo.png',
+        'images/لوجو.jpg',
+        'images/لوقو.jpg'
+        'images/الشعار.png',
+    ];
+    
+    let currentTry = img.getAttribute('data-try') || 0;
+    if (currentTry < paths.length) {
+        img.setAttribute('data-try', parseInt(currentTry) + 1);
+        img.src = paths[currentTry] + "?v=" + Math.random();
+    }
+}
+</script>
 
     <nav class="categories">
         <a href="#juices" class="cat-item"><img src="images/cat-juice.jpg"><span>عصائر</span></a>
@@ -136,6 +157,7 @@
 
 </body>
 </html>
+
 
 
 
