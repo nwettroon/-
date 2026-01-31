@@ -3,105 +3,133 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>منيو</title>
+    <title>ثمرة المذاق المنعش</title>
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
 
-    <div class="container">
-        <header class="hero-section" style="background-image: url('images/hero.jpg');">
-            <div class="overlay"></div>
-        </header>
+<div class="container">
+    <header class="hero-section">
+        <div class="overlay"></div>
+    </header>
 
-        <div class="restaurant-info">
-            <img src="images/logo.png" alt="Logo" class="logo">
-            <h1>ثمرة المذاق المنعش</h1>
-            <div class="social-icons">
-                <span>📍</span> <span>💬</span> <span>📞</span>
-            </div>
-        </div>
-
-        <nav class="categories">
-            <a href="#shawarma" class="cat-item"><img src="images/cat-sh.jpg"><span>شاورما</span></a>
-            <a href="#juices" class="cat-item active"><img src="images/cat-juice.jpg"><span>عصائر</span></a>
-            <a href="#falafel" class="cat-item"><img src="images/cat-fa.jpg"><span>فلافل</span></a>
-            <a href="#pizza" class="cat-item"><img src="images/cat-pi.jpg"><span>بيتزا</span></a>
-            <a href="#kebab" class="cat-item"><img src="images/cat-ke.jpg"><span>كباب</span></a>
-            <a href="#hot-drinks" class="cat-item"><img src="images/cat-hot.jpg"><span>ساخن وحلا</span></a>
-        </nav>
-
-        <div id="juices" class="menu-section">
-            <h2 class="section-title">عصائر طازجة</h2>
-            <script>
-                const juices = ["برتقال", "رمان", "بطيخ", "موز", "شمام", "زنجبيل بالحمضيات", "اناناس", "مانجو", "فرنسي", "سلطة فواكه", "طبقات", "فروله", "ليمون", "شمندر بالفواكه", "افكادو مكسرات", "مشكل لمسه", "فيتامين سي", "كيوي", "جوافه", "عنب", "بابايا", "اوريو", "عوار", "توت", "روز دي حمضيات", "لوتس", "اصفهاني", "منجاوي", "كركديه", "جي مطور", "ملكي"];
-                juices.forEach(item => {
-                    // تم ضبط الأسعار كما طلبت: 8، 10، 12، 25، 30
-                    document.write(`<div class="product-card" onclick="openJuice('${item}', 'images/${item}.jpg', '8', '10', '12', '25', '30')">
-                        <div class="product-details"><h3>${item}</h3><p class="calories">طازج 100%</p><span class="price">يبدأ من 8 ريال</span></div>
-                        <div class="product-img"><img src="images/${item}.jpg" onerror="this.src='https://placehold.jp/150x150.png'"></div>
-                    </div>`);
-                });
-            </script>
-        </div>
-
-        <div id="shawarma" class="menu-section">
-            <h2 class="section-title">شاورما</h2>
-            <script>
-                const shawarma = ["عربي", "سندوتش صاروخ", "بطاطس فرايز"];
-                shawarma.forEach(item => {
-                    document.write(`<div class="product-card" onclick="openItem('${item}', 'images/${item}.jpg', '15', '20', '25')">
-                        <div class="product-details"><h3>${item}</h3><p class="calories">طعم أصيل</p><span class="price">من 15 ريال</span></div>
-                        <div class="product-img"><img src="images/${item}.jpg" onerror="this.src='https://placehold.jp/150x150.png'"></div>
-                    </div>`);
-                });
-            </script>
-        </div>
-
-        </div>
-
-    <div id="itemModal" class="modal">
-        <div class="modal-content">
-            <span class="close-btn" onclick="closeModal()">&times;</span>
-            <img id="modalImg" src="">
-            <h2 id="modalTitle"></h2>
-            <div class="sizes-list" id="modalSizes">
-                </div>
-        </div>
+    <div class="restaurant-info">
+        <img src="images/logo.png" alt="الشعار" class="logo">
+        <h1>ثمرة المذاق المنعش</h1>
     </div>
 
-    <script>
-        // دالة مخصصة للعصائر بـ 5 مقاسات
-        function openJuice(name, img, pS, pM, pL, pG1, pG2) {
-            document.getElementById('modalTitle').innerText = name;
-            document.getElementById('modalImg').src = img;
-            const sizesHtml = `
-                <div class="size-item"><span>صغير</span><span class="size-price">${pS} ريال</span></div>
-                <div class="size-item"><span>وسط</span><span class="size-price">${pM} ريال</span></div>
-                <div class="size-item"><span>كبير</span><span class="size-price">${pL} ريال</span></div>
-                <div class="size-item"><span>جالون 1 لتر</span><span class="size-price">${pG1} ريال</span></div>
-                <div class="size-item"><span>جالون 1.5 لتر</span><span class="size-price">${pG2} ريال</span></div>
-            `;
-            document.getElementById('modalSizes').innerHTML = sizesHtml;
-            document.getElementById('itemModal').style.display = "flex";
-        }
+    <nav class="categories">
+        <a href="#juices" class="cat-item"><img src="images/cat-juice.jpg"><span>عصائر</span></a>
+        <a href="#shawarma" class="cat-item"><img src="images/cat-sh.jpg"><span>شاورما</span></a>
+        <a href="#falafel" class="cat-item"><img src="images/cat-fa.jpg"><span>فلافل</span></a>
+        <a href="#pizza" class="cat-item"><img src="images/cat-pi.jpg"><span>بيتزا</span></a>
+        <a href="#kebab" class="cat-item"><img src="images/cat-ke.jpg"><span>كباب</span></a>
+        <a href="#hot-drinks" class="cat-item"><img src="images/cat-hot.jpg"><span>حلا</span></a>
+    </nav>
 
-        // دالة بقية الأصناف (3 مقاسات فقط)
-        function openItem(name, img, pS, pM, pL) {
-            document.getElementById('modalTitle').innerText = name;
-            document.getElementById('modalImg').src = img;
-            const sizesHtml = `
-                <div class="size-item"><span>صغير</span><span class="size-price">${pS} ريال</span></div>
-                <div class="size-item"><span>وسط</span><span class="size-price">${pM} ريال</span></div>
-                <div class="size-item"><span>كبير</span><span class="size-price">${pL} ريال</span></div>
-            `;
-            document.getElementById('modalSizes').innerHTML = sizesHtml;
-            document.getElementById('itemModal').style.display = "flex";
-        }
+    <div id="juices" class="menu-section">
+        <h2 class="section-title">عصائر طازجة</h2>
+        <div id="juices-list"></div>
+    </div>
 
-        function closeModal() { document.getElementById('itemModal').style.display = "none"; }
-        window.onclick = function(event) { if (event.target == document.getElementById('itemModal')) closeModal(); }
-    </script>
+    <div id="shawarma" class="menu-section">
+        <h2 class="section-title">شاورما</h2>
+        <div id="shawarma-list"></div>
+    </div>
 
+    <div id="falafel" class="menu-section"><h2 class="section-title">فلافل</h2><div id="falafel-list"></div></div>
+    <div id="pizza" class="menu-section"><h2 class="section-title">بيتزا</h2><div id="pizza-list"></div></div>
+    <div id="kebab" class="menu-section"><h2 class="section-title">كباب</h2><div id="kebab-list"></div></div>
+    <div id="hot-drinks" class="menu-section"><h2 class="section-title">حلا وساخن</h2><div id="hot-list"></div></div>
+</div>
+
+<div id="itemModal" class="modal">
+    <div class="modal-content">
+        <span onclick="closeModal()" class="close-btn">&times;</span>
+        <img id="modalImg" src="">
+        <h2 id="modalTitle"></h2>
+        <div id="modalSizes"></div>
+    </div>
+</div>
+
+<script>
+    // بيانات الأصناف
+    const data = {
+        juices: ["برتقال", "رمان", "بطيخ", "موز", "شمام", "زنجبيل بالحمضيات", "اناناس", "مانجو", "فرنسي", "سلطة فواكه", "طبقات", "فروله", "ليمون", "شمندر بالفواكه", "افكادو مكسرات", "مشكل لمسه", "فيتامين سي", "كيوي", "جوافه", "عنب", "بابايا", "اوريو", "عوار", "توت", "روز دي حمضيات", "لوتس", "اصفهاني", "منجاوي", "كركديه", "جي مطور", "ملكي"],
+        shawarma: ["عربي", "سندوتش صاروخ", "بطاطس فرايز"],
+        falafel: ["سندوتش فلافل", "سندوتش بيض", "سندوتش فول", "صحن فول", "صحن مشكل"],
+        pizza: ["بيبروني", "سجق", "خضار", "رنش", "باربكيو", "فليمزو", "دجاج", "مشكل اجبان", "نقانق"],
+        kebab: ["سندوتش كباب لحم", "سندوتش كباب دجاج", "صحن كباب لحم", "صحن كباب دجاج"],
+        hot: ["قهوه سعوديه", "شاي", "بودنق", "v60", "كوب قهوه سوداء"]
+    };
+
+    // وظيفة بناء المنيو
+    function buildMenu() {
+        // بناء العصائر
+        const jContainer = document.getElementById('juices-list');
+        data.juices.forEach(item => {
+            jContainer.innerHTML += createCard(item, 'juice', '8', '10', '12', '25', '30');
+        });
+
+        // بناء الشاورما (مثال بأسعار مختلفة)
+        const sContainer = document.getElementById('shawarma-list');
+        data.shawarma.forEach(item => sContainer.innerHTML += createCard(item, 'item', '15', '20', '25'));
+
+        // بناء الفلافل
+        const fContainer = document.getElementById('falafel-list');
+        data.falafel.forEach(item => fContainer.innerHTML += createCard(item, 'item', '5', '8', '12'));
+
+        // بناء البيتزا
+        const pContainer = document.getElementById('pizza-list');
+        data.pizza.forEach(item => pContainer.innerHTML += createCard(item, 'item', '25', '35', '45'));
+
+        // بناء الكباب
+        const kContainer = document.getElementById('kebab-list');
+        data.kebab.forEach(item => kContainer.innerHTML += createCard(item, 'item', '12', '24', '48'));
+
+        // بناء الحلا
+        const hContainer = document.getElementById('hot-list');
+        data.hot.forEach(item => hContainer.innerHTML += createCard(item, 'item', '2', '5', '15'));
+    }
+
+    function createCard(name, type, p1, p2, p3, p4, p5) {
+        let func = type === 'juice' ? `openJuice('${name}', 'images/${name}.jpg', '${p1}', '${p2}', '${p3}', '${p4}', '${p5}')` : `openItem('${name}', 'images/${name}.jpg', '${p1}', '${p2}', '${p3}')`;
+        return `
+            <div class="product-card" onclick="${func}">
+                <div class="product-details"><h3>${name}</h3><span class="price">من ${p1} ريال</span></div>
+                <div class="product-img"><img src="images/${name}.jpg" onerror="this.src='https://placehold.jp/150x150.png'"></div>
+            </div>`;
+    }
+
+    function openJuice(name, img, pS, pM, pL, pG1, pG2) {
+        showModal(name, img, `
+            <div class="size-item"><span>صغير</span><span>${pS} ريال</span></div>
+            <div class="size-item"><span>وسط</span><span>${pM} ريال</span></div>
+            <div class="size-item"><span>كبير</span><span>${pL} ريال</span></div>
+            <div class="size-item"><span>جالون 1 لتر</span><span>${pG1} ريال</span></div>
+            <div class="size-item"><span>جالون 1.5 لتر</span><span>${pG2} ريال</span></div>
+        `);
+    }
+
+    function openItem(name, img, pS, pM, pL) {
+        showModal(name, img, `
+            <div class="size-item"><span>صغير</span><span>${pS} ريال</span></div>
+            <div class="size-item"><span>وسط</span><span>${pM} ريال</span></div>
+            <div class="size-item"><span>كبير</span><span>${pL} ريال</span></div>
+        `);
+    }
+
+    function showModal(name, img, content) {
+        document.getElementById('modalTitle').innerText = name;
+        document.getElementById('modalImg').src = img;
+        document.getElementById('modalSizes').innerHTML = content;
+        document.getElementById('itemModal').style.display = "flex";
+    }
+
+    function closeModal() { document.getElementById('itemModal').style.display = "none"; }
+    window.onclick = function(e) { if(e.target.className == 'modal') closeModal(); }
+    
+    buildMenu();
+</script>
 </body>
-
 </html>
