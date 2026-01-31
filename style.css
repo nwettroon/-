@@ -48,11 +48,12 @@ body {
 }
 
 .logo {
-    width: 100px;
-    height: 100px;
-    border-radius: 50%;
-    border: 3px solid var(--white);
-    box-shadow: 0 4px 15px rgba(74, 44, 26, 0.15);
+    width: 100px !important;    /* تأكد من وجود العرض */
+    height: 100px !important;   /* تأكد من وجود الطول */
+    display: block !important;  /* تأكد أنها ليست مخفية */
+    opacity: 1 !important;      /* تأكد أن الشفافية كاملة */
+    position: relative;
+    z-index: 99;                /* لجعلها فوق كل شيء */
 }
 
 .restaurant-info h1 {
@@ -167,3 +168,4 @@ body {
     color: var(--dark-text);
     border: 1px solid rgba(242, 109, 33, 0.2);
 }
+
