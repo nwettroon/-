@@ -104,24 +104,30 @@ function checkOtherFormats(img) {
         menuData.juices.forEach(item => juicesDiv.innerHTML += createCard(item, true));
 
         // بناء الشاورما
-        // بناء الشاورما بأسعار مخصصة (إصلاح سطر 108)
+        // بناء الشاورما بأسعار مخصصة (تعديل نهائي لجميع الأصناف)
         const shawarmaDiv = document.getElementById('shawarma-list');
         menuData.shawarma.forEach(item => {
-            let priceSmall = "12";
-            let priceMedium = "15";
-            let priceLarge = "20";
-            let startPrice = "12";
+            let priceS, priceM, priceL, startPrice;
 
-            // تحديد الأسعار بناءً على اسم الصنف
             if (item === "سندوتش صاروخ" || item === "بطاطس فرايز") {
-                priceSmall = "8";
-                priceMedium = "10";
-                priceLarge = "10";
+                // الأسعار التي طلبتها للصاروخ والبطاطس
+                priceS = "8";
+                priceM = "10";
+                priceL = "10";
                 startPrice = "8";
+            } else if (item === "عربي") {
+                // الأسعار التي طلبتها للعربي
+                priceS = "15";
+                priceM = "20";
+                priceL = "25";
+                startPrice = "15";
+            } else {
+                // أي صنف آخر قد تضيفه مستقبلاً في هذا القسم
+                priceS = "12"; priceM = "15"; priceL = "20"; startPrice = "12";
             }
 
             shawarmaDiv.innerHTML += `
-                <div class="product-card" onclick="openItem('${item}', 'images/${item}.jpg', '${priceSmall}', '${priceMedium}', '${priceLarge}')">
+                <div class="product-card" onclick="openItem('${item}', 'images/${item}.jpg', '${priceS}', '${priceM}', '${priceL}')">
                     <div class="product-details">
                         <h3>${item}</h3>
                         <span class="price">من ${startPrice} ريال</span>
@@ -130,8 +136,7 @@ function checkOtherFormats(img) {
                         <img src="images/${item}.jpg" onerror="this.src='https://placehold.jp/150x150.png'">
                     </div>
                 </div>`;
-        }); // هذا القوس هو الذي كان مفقوداً ويسبب المشكلة
-
+        }); // إغلاق القوس بشكل صحيح لضمان ظهور الأقسام التالية
         // بناء الفلافل
         const falafelDiv = document.getElementById('falafel-list');
         menuData.falafel.forEach(item => falafelDiv.innerHTML += createCard(item, false));
@@ -187,6 +192,7 @@ function checkOtherFormats(img) {
 
 </body>
 </html>
+
 
 
 
