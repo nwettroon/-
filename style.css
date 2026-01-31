@@ -26,11 +26,22 @@ body {
 /* صورة الهيدر */
 .hero-section {
     width: 100%;
-    height: 220px;
-    background: url('images/hero.jpg') center/cover;
-    border-radius: 0 0 40px 40px; /* انحناء من الأسفل */
+    height: 250px; /* يمكنك زيادة الارتفاع حسب رغبتك */
+    background-image: url('images/background.jpg'); /* اسم صورة الخلفية الخاصة بك */
+    background-size: cover;
+    background-position: center;
+    position: relative;
+    border-radius: 0 0 30px 30px; /* لعمل انحناء بسيط في الأسفل مثل الصورة */
 }
 
+/* طبقة شفافة لجعل الشعار يبرز أكثر */
+.overlay {
+    position: absolute;
+    top: 0; left: 0;
+    width: 100%; height: 100%;
+    background: rgba(0,0,0,0.1); /* تعتيم خفيف جداً */
+    border-radius: 0 0 30px 30px;
+}
 /* معلومات المطعم والشعار */
 .restaurant-info {
     text-align: center;
@@ -233,4 +244,5 @@ body {
 .size-price {
     color: var(--primary-orange);
     font-weight: bold;
+
 }
