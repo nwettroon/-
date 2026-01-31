@@ -141,9 +141,46 @@ function checkOtherFormats(img) {
         menuData.falafel.forEach(item => falafelDiv.innerHTML += createCard(item, false));
 
         // بناء البيتزا
+        // بناء قسم البيتزا لجميع الأصناف الـ 9 بأسعار مخصصة
         const pizzaDiv = document.getElementById('pizza-list');
-        menuData.pizza.forEach(item => pizzaDiv.innerHTML += createCard(item, false));
+        menuData.pizza.forEach(item => {
+            let pS, pM, pL, startP;
 
+            // تحديد سعر كل نوع بدقة
+            if (item === "بيبروني") {
+                pS = "23"; pL = "28"; startP = "23";
+            } else if (item === "سجق") {
+                pS = "18"; pL = "25"; startP = "18";
+            } else if (item === "خضار") {
+                pS = "15"; pL = "20"; startP = "15";
+            } else if (item === "رنش") {
+                pS = "23"; pL = "28"; startP = "23";
+            } else if (item === "باربكيو") {
+                pS = "23"; pL = "28"; startP = "23";
+            } else if (item === "فليمزو") {
+                pS = "23"; pL = "28"; startP = "23";
+            } else if (item === "دجاج") {
+                pS = "20"; pL = "25"; startP = "20";
+            } else if (item === "مشكل اجبان") {
+                pS = "20"; pL = "15"; startP = "15";
+            } else if (item === "نقانق") {
+                pS = "17"; pL = "23"; startP = "17";
+            } else {
+                // احتياط لأي صنف آخر
+                pS = "18"; pM = "28"; pL = "38"; startP = "18";
+            }
+
+            pizzaDiv.innerHTML += `
+                <div class="product-card" onclick="openItem('${item}', 'images/${item}.jpg', '${pS}', '${pM}', '${pL}')">
+                    <div class="product-details">
+                        <h3>${item}</h3>
+                        <span class="price">من ${startP} ريال</span>
+                    </div>
+                    <div class="product-img">
+                        <img src="images/${item}.jpg" onerror="this.src='https://placehold.jp/150x150.png'">
+                    </div>
+                </div>`;
+        });
         // بناء الكباب
         const kebabDiv = document.getElementById('kebab-list');
         menuData.kebab.forEach(item => kebabDiv.innerHTML += createCard(item, false));
@@ -191,6 +228,7 @@ function checkOtherFormats(img) {
 
 </body>
 </html>
+
 
 
 
