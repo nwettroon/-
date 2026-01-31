@@ -104,8 +104,37 @@ function checkOtherFormats(img) {
         menuData.juices.forEach(item => juicesDiv.innerHTML += createCard(item, true));
 
         // بناء الشاورما
-        const shawarmaDiv = document.getElementById('shawarma-list');
-        menuData.shawarma.forEach(item => shawarmaDiv.innerHTML += createCard(item, false));
+        // بناء الشاورما بأسعار مخصصة
+const shawarmaDiv = document.getElementById('shawarma-list');
+menuData.shawarma.forEach(item => {
+    let priceSmall = "8";
+    let priceLarge = "10";
+    let startPrice = "8";
+
+    // تحديد الأسعار بناءً على اسم الصنف
+    if (item === "سندوتش صاروخ" || item === "بطاطس فرايز") {
+        priceSmall = "8";
+        priceLarge = "10";
+        startPrice = "8";
+    } else {
+        // أسعار العربي أو الأصناف الأخرى في قسم الشاورما
+        priceSmall = "15";
+        priceMedium + "20";
+        priceLarge = "25";
+        startPrice = "15";
+    }
+
+    shawarmaDiv.innerHTML += `
+        <div class="product-card" onclick="openItem('${item}', 'images/${item}.jpg', '${priceSmall}', '${priceLarge}', '${priceLarge}')">
+            <div class="product-details">
+                <h3>${item}</h3>
+                <span class="price">من ${startPrice} ريال</span>
+            </div>
+            <div class="product-img">
+                <img src="images/${item}.jpg" onerror="this.src='https://placehold.jp/150x150.png'">
+            </div>
+        </div>`;
+});
 
         // بناء الفلافل
         const falafelDiv = document.getElementById('falafel-list');
@@ -162,6 +191,7 @@ function checkOtherFormats(img) {
 
 </body>
 </html>
+
 
 
 
