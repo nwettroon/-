@@ -1,37 +1,169 @@
-:root { --primary-orange: #ff6b00; --light-bg: #fff5f0; }
-body { font-family: 'Segoe UI', sans-serif; background-color: var(--light-bg); margin: 0; display: flex; justify-content: center; }
-.container { width: 100%; max-width: 450px; background: white; min-height: 100vh; box-shadow: 0 0 15px rgba(0,0,0,0.1); }
-
-/* الخلفية المصلحة */
-.hero-section { 
-    width: 100%; height: 250px; 
-    background-image: url('images/background.jpg'); 
-    background-size: cover; background-position: center; 
-    position: relative; border-radius: 0 0 35px 35px; 
+:root {
+    --primary-orange: #f26d21; /* البرتقالي الخاص بالهوية */
+    --light-peach: #fff2e8;   /* لون الخلفية الكريمي */
+    --dark-text: #4a2c1a;     /* لون النصوص البني الداكن */
+    --white: #ffffff;
 }
 
-.overlay { position: absolute; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.2); border-radius: 0 0 35px 35px; }
-.restaurant-info { text-align: center; margin-top: -55px; position: relative; }
-.logo { width: 110px; height: 110px; border-radius: 50%; border: 4px solid white; box-shadow: 0 4px 8px rgba(0,0,0,0.1); }
-.restaurant-info h1 { color: var(--primary-orange); margin: 10px 0; }
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background-color: var(--light-peach); /* خلفية الصفحة كاملة */
+    margin: 0;
+    display: flex;
+    justify-content: center;
+    color: var(--dark-text);
+}
 
-/* شريط الأقسام السحاب */
-.categories { display: flex; overflow-x: auto; gap: 15px; padding: 15px 20px; scrollbar-width: none; }
+.container {
+    width: 100%;
+    max-width: 450px;
+    background: var(--light-peach); /* الحاوية بنفس لون الخلفية لتبدو ممتدة */
+    min-height: 100vh;
+}
+
+/* الهيدر مع تدرج لوني دافئ */
+.hero-section {
+    width: 100%;
+    height: 220px;
+    background-image: url('images/background.jpg');
+    background-size: cover;
+    background-position: center;
+    position: relative;
+    border-radius: 0 0 40px 40px;
+}
+
+.overlay {
+    position: absolute;
+    top: 0; left: 0;
+    width: 100%; height: 100%;
+    background: linear-gradient(to bottom, rgba(255,242,232,0.1), rgba(255,242,232,0.8));
+    border-radius: 0 0 40px 40px;
+}
+
+/* معلومات المطعم */
+.restaurant-info {
+    text-align: center;
+    margin-top: -50px;
+    position: relative;
+}
+
+.logo {
+    width: 100px;
+    height: 100px;
+    border-radius: 50%;
+    border: 3px solid var(--white);
+    box-shadow: 0 4px 15px rgba(74, 44, 26, 0.15);
+}
+
+.restaurant-info h1 {
+    color: var(--primary-orange);
+    font-size: 22px;
+    margin: 10px 0 5px;
+}
+
+/* شريط الأقسام الدائري */
+.categories {
+    display: flex;
+    overflow-x: auto;
+    gap: 12px;
+    padding: 20px;
+    scrollbar-width: none;
+}
+
 .categories::-webkit-scrollbar { display: none; }
-.cat-item { text-align: center; text-decoration: none; color: #333; min-width: 75px; flex: 0 0 auto; }
-.cat-item img { width: 65px; height: 65px; border-radius: 50%; border: 2px solid #ddd; object-fit: cover; }
 
-.menu-section { padding: 0 20px 20px; }
-.section-title { text-align: right; border-right: 5px solid var(--primary-orange); padding-right: 10px; margin: 25px 0 15px; }
-.product-card { display: flex; flex-direction: row-reverse; justify-content: space-between; align-items: center; padding: 15px; background: #fff; border-radius: 15px; margin-bottom: 12px; box-shadow: 0 2px 5px rgba(0,0,0,0.05); cursor: pointer; }
+.cat-item {
+    text-align: center;
+    text-decoration: none;
+    min-width: 80px;
+    flex: 0 0 auto;
+}
+
+.cat-item img {
+    width: 70px;
+    height: 70px;
+    border-radius: 50%;
+    border: 2px solid var(--primary-orange);
+    padding: 2px;
+    background: var(--white);
+    object-fit: cover;
+    transition: 0.3s;
+}
+
+.cat-item span {
+    display: block;
+    margin-top: 8px;
+    font-size: 14px;
+    font-weight: bold;
+    color: var(--dark-text);
+}
+
+/* بطاقات الأصناف (بيضاء بخلفية دافئة) */
+.menu-section { padding: 10px 20px 30px; }
+
+.section-title {
+    text-align: right;
+    color: var(--dark-text);
+    font-size: 20px;
+    margin: 20px 0;
+    position: relative;
+}
+
+.section-title::after {
+    content: '';
+    display: block;
+    width: 40px;
+    height: 3px;
+    background: var(--primary-orange);
+    margin-top: 5px;
+    border-radius: 2px;
+}
+
+.product-card {
+    display: flex;
+    flex-direction: row-reverse;
+    justify-content: space-between;
+    align-items: center;
+    padding: 12px;
+    background: var(--white);
+    border-radius: 20px;
+    margin-bottom: 15px;
+    box-shadow: 0 4px 10px rgba(74, 44, 26, 0.05);
+}
+
 .product-details { text-align: right; flex: 1; padding-right: 15px; }
-.product-details h3 { margin: 0; color: var(--primary-orange); font-size: 16px; }
-.price { background: var(--primary-orange); color: white; padding: 2px 8px; border-radius: 5px; font-weight: bold; font-size: 12px; }
-.product-img img { width: 80px; height: 80px; border-radius: 12px; object-fit: cover; }
 
-/* النافذة المنبثقة */
-.modal { display: none; position: fixed; z-index: 1000; left: 0; top: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.7); align-items: center; justify-content: center; }
-.modal-content { background: white; padding: 20px; border-radius: 25px; width: 85%; max-width: 380px; text-align: center; position: relative; }
-.close-btn { position: absolute; top: 10px; left: 20px; font-size: 25px; cursor: pointer; }
-#modalImg { width: 100%; border-radius: 15px; margin-bottom: 10px; }
-.size-item { display: flex; justify-content: space-between; padding: 10px; background: #f9f9f9; border-radius: 10px; margin-top: 8px; font-weight: bold; }
+.product-details h3 { 
+    margin: 0 0 5px; 
+    color: var(--primary-orange); 
+    font-size: 16px; 
+}
+
+.price { 
+    background: var(--primary-orange); 
+    color: var(--white); 
+    padding: 4px 12px; 
+    border-radius: 8px; 
+    font-weight: bold; 
+    font-size: 14px;
+    display: inline-block;
+}
+
+.product-img img { 
+    width: 85px; 
+    height: 85px; 
+    border-radius: 15px; 
+    object-fit: cover; 
+}
+
+/* النافذة المنبثقة بنفس التصميم */
+.modal-content {
+    background: var(--light-peach);
+    border: 2px solid var(--primary-orange);
+}
+
+.size-item {
+    background: var(--white);
+    color: var(--dark-text);
+    border: 1px solid rgba(242, 109, 33, 0.2);
+}
