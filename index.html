@@ -27,16 +27,8 @@
         <a href="#hot-drinks" class="cat-item"><img src="images/cat-hot.jpg"><span>حلا</span></a>
     </nav>
 
-    <div id="juices" class="menu-section">
-        <h2 class="section-title">عصائر طازجة</h2>
-        <div id="juices-list"></div>
-    </div>
-
-    <div id="shawarma" class="menu-section">
-        <h2 class="section-title">شاورما</h2>
-        <div id="shawarma-list"></div>
-    </div>
-
+    <div id="juices" class="menu-section"><h2 class="section-title">عصائر طازجة</h2><div id="juices-list"></div></div>
+    <div id="shawarma" class="menu-section"><h2 class="section-title">شاورما</h2><div id="shawarma-list"></div></div>
     <div id="falafel" class="menu-section"><h2 class="section-title">فلافل</h2><div id="falafel-list"></div></div>
     <div id="pizza" class="menu-section"><h2 class="section-title">بيتزا</h2><div id="pizza-list"></div></div>
     <div id="kebab" class="menu-section"><h2 class="section-title">كباب</h2><div id="kebab-list"></div></div>
@@ -53,8 +45,8 @@
 </div>
 
 <script>
-    // بيانات الأصناف
-    const data = {
+    // 1. بيانات جميع الأصناف
+    const menuData = {
         juices: ["برتقال", "رمان", "بطيخ", "موز", "شمام", "زنجبيل بالحمضيات", "اناناس", "مانجو", "فرنسي", "سلطة فواكه", "طبقات", "فروله", "ليمون", "شمندر بالفواكه", "افكادو مكسرات", "مشكل لمسه", "فيتامين سي", "كيوي", "جوافه", "عنب", "بابايا", "اوريو", "عوار", "توت", "روز دي حمضيات", "لوتس", "اصفهاني", "منجاوي", "كركديه", "جي مطور", "ملكي"],
         shawarma: ["عربي", "سندوتش صاروخ", "بطاطس فرايز"],
         falafel: ["سندوتش فلافل", "سندوتش بيض", "سندوتش فول", "صحن فول", "صحن مشكل"],
@@ -63,44 +55,53 @@
         hot: ["قهوه سعوديه", "شاي", "بودنق", "v60", "كوب قهوه سوداء"]
     };
 
-    // وظيفة بناء المنيو
-    function buildMenu() {
-        // بناء العصائر
-        const jContainer = document.getElementById('juices-list');
-        data.juices.forEach(item => {
-            jContainer.innerHTML += createCard(item, 'juice', '8', '10', '12', '25', '30');
-        });
+    // 2. وظيفة إنشاء "بطاقة الصنف"
+    function createCard(name, isJuice) {
+        let price = isJuice ? "8" : "15"; // سعر افتراضي للعرض فقط
+        let clickFunc = isJuice 
+            ? `openJuice('${name}', 'images/${name}.jpg', '8', '10', '12', '25', '30')`
+            : `openItem('${name}', 'images/${name}.jpg', '12', '18', '25')`;
 
-        // بناء الشاورما (مثال بأسعار مختلفة)
-        const sContainer = document.getElementById('shawarma-list');
-        data.shawarma.forEach(item => sContainer.innerHTML += createCard(item, 'item', '15', '20', '25'));
-
-        // بناء الفلافل
-        const fContainer = document.getElementById('falafel-list');
-        data.falafel.forEach(item => fContainer.innerHTML += createCard(item, 'item', '5', '8', '12'));
-
-        // بناء البيتزا
-        const pContainer = document.getElementById('pizza-list');
-        data.pizza.forEach(item => pContainer.innerHTML += createCard(item, 'item', '25', '35', '45'));
-
-        // بناء الكباب
-        const kContainer = document.getElementById('kebab-list');
-        data.kebab.forEach(item => kContainer.innerHTML += createCard(item, 'item', '12', '24', '48'));
-
-        // بناء الحلا
-        const hContainer = document.getElementById('hot-list');
-        data.hot.forEach(item => hContainer.innerHTML += createCard(item, 'item', '2', '5', '15'));
-    }
-
-    function createCard(name, type, p1, p2, p3, p4, p5) {
-        let func = type === 'juice' ? `openJuice('${name}', 'images/${name}.jpg', '${p1}', '${p2}', '${p3}', '${p4}', '${p5}')` : `openItem('${name}', 'images/${name}.jpg', '${p1}', '${p2}', '${p3}')`;
         return `
-            <div class="product-card" onclick="${func}">
-                <div class="product-details"><h3>${name}</h3><span class="price">من ${p1} ريال</span></div>
-                <div class="product-img"><img src="images/${name}.jpg" onerror="this.src='https://placehold.jp/150x150.png'"></div>
+            <div class="product-card" onclick="${clickFunc}">
+                <div class="product-details">
+                    <h3>${name}</h3>
+                    <span class="price">من ${price} ريال</span>
+                </div>
+                <div class="product-img">
+                    <img src="images/${name}.jpg" onerror="this.src='https://placehold.jp/150x150.png'">
+                </div>
             </div>`;
     }
 
+    // 3. بناء المنيو بالكامل عند تحميل الصفحة
+    function initMenu() {
+        // بناء العصائر
+        const juicesDiv = document.getElementById('juices-list');
+        menuData.juices.forEach(item => juicesDiv.innerHTML += createCard(item, true));
+
+        // بناء الشاورما
+        const shawarmaDiv = document.getElementById('shawarma-list');
+        menuData.shawarma.forEach(item => shawarmaDiv.innerHTML += createCard(item, false));
+
+        // بناء الفلافل
+        const falafelDiv = document.getElementById('falafel-list');
+        menuData.falafel.forEach(item => falafelDiv.innerHTML += createCard(item, false));
+
+        // بناء البيتزا
+        const pizzaDiv = document.getElementById('pizza-list');
+        menuData.pizza.forEach(item => pizzaDiv.innerHTML += createCard(item, false));
+
+        // بناء الكباب
+        const kebabDiv = document.getElementById('kebab-list');
+        menuData.kebab.forEach(item => kebabDiv.innerHTML += createCard(item, false));
+
+        // بناء الحلا والساخن
+        const hotDiv = document.getElementById('hot-list');
+        menuData.hot.forEach(item => hotDiv.innerHTML += createCard(item, false));
+    }
+
+    // 4. وظائف النافذة المنبثقة
     function openJuice(name, img, pS, pM, pL, pG1, pG2) {
         showModal(name, img, `
             <div class="size-item"><span>صغير</span><span>${pS} ريال</span></div>
@@ -128,8 +129,10 @@
 
     function closeModal() { document.getElementById('itemModal').style.display = "none"; }
     window.onclick = function(e) { if(e.target.className == 'modal') closeModal(); }
-    
-    buildMenu();
+
+    // تشغيل البناء
+    initMenu();
 </script>
+
 </body>
 </html>
