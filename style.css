@@ -246,4 +246,35 @@ body {
     color: #333;
 }
 
+/* تنسيق زر الترجمة العائم */
+#translate-wrapper {
+    position: fixed;
+    bottom: 20px;
+    left: 20px; /* يظهر في الزاوية اليسرى السفلية */
+    z-index: 9999;
+    background: white;
+    padding: 10px;
+    border-radius: 50px;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+}
+
+#google_translate_element {
+    display: none; /* مخفي افتراضياً ويظهر عند الضغط */
+    margin-left: 10px;
+}
+
+#translate-wrapper:hover #google_translate_element {
+    display: block; /* يظهر عند مرور الماوس أو الضغط */
+}
+
+/* إخفاء شريط جوجل العلوي المزعج */
+.goog-te-banner-frame.skiptranslate {
+    display: none !important;
+}
+body {
+    top: 0px !important;
+}
 
