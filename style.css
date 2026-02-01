@@ -350,7 +350,33 @@ body {
     position: static !important;
 }
 
+/* --- إصلاح تناسق الشاشة والجوانب --- */
+.container {
+    width: 100%;
+    max-width: 100%; /* لضمان ملء شاشة الجوال بالكامل دون نقص */
+    background: var(--light-peach);
+    min-height: 100vh;
+    margin: 0 auto;
+    overflow-x: hidden; /* لمنع الموقع من التحرك يميناً ويساراً */
+    display: flex;
+    flex-direction: column;
+}
+
+/* تعديل زر اللغة لضمان عدم اختفائه في طرف الشاشة */
+#custom-translate {
+    position: fixed;
+    top: 20px; 
+    left: 10px; /* زحزحة الزر قليلاً للداخل */
+    z-index: 10000;
+}
+
+/* ضمان أن البطاقات لا تلمس حواف الجوال */
+.menu-section {
+    padding: 10px 15px 30px; 
+}
+
 html {
     top: 0 !important;
 }
+
 
