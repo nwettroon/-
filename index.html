@@ -133,15 +133,24 @@
                 <div class="product-img"><img src="images/${item}.jpg" onerror="this.src='https://placehold.jp/150x150.png'"></div></div>`;
         });
 
-        // بناء الكباب
-        const kebabDiv = document.getElementById('kebab-list');
-        menuData.kebab.forEach(item => {
-            let pS="10", pL="0";
-            if(item.includes("صحن")) pS="30";
-            kebabDiv.innerHTML += `<div class="product-card" onclick="openItem('${item}', 'images/${item}.jpg', '${pS}', '0', '${pL}')">
-                <div class="product-details"><h3>${item}</h3><span class="price">${pS} ريال</span></div>
-                <div class="product-img"><img src="images/${item}.jpg" onerror="this.src='https://placehold.jp/150x150.png'"></div></div>`;
-        });
+        // بناء الكباب - تم التعديل لتخصيص أسعار الصحون
+const kebabDiv = document.getElementById('kebab-list');
+menuData.kebab.forEach(item => {
+    let pS = "10", pL = "0";
+    
+    // شرط تخصيص أسعار الصحون
+    if (item === "صحن كباب لحم") {
+        pS = "30"; 
+    } else if (item === "صحن كباب دجاج") {
+        pS = "27";
+    } else if (item.includes("صحن")) {
+        pS = "30"; // سعر احتياطي لأي صحن آخر
+    }
+
+    kebabDiv.innerHTML += `<div class="product-card" onclick="openItem('${item}', 'images/${item}.jpg', '${pS}', '0', '${pL}')">
+        <div class="product-details"><h3>${item}</h3><span class="price">${pS} ريال</span></div>
+        <div class="product-img"><img src="images/${item}.jpg" onerror="this.src='https://placehold.jp/150x150.png'"></div></div>`;
+});
 
         // بناء الحلا والساخن
         const hotDiv = document.getElementById('hot-list');
@@ -210,5 +219,6 @@
 <script type="text/javascript" src="//translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"></script>
 </body>
 </html>
+
 
 
