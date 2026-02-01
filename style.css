@@ -1,6 +1,6 @@
 /* ========================================
-   1. المتغيرات والألوان الأساسية (Root)
-   ========================================
+    1. المتغيرات والألوان الأساسية (Root)
+    ========================================
 */
 :root {
     --primary-orange: #f26d21; /* البرتقالي الخاص بالهوية */
@@ -10,8 +10,8 @@
 }
 
 /* ========================================
-   2. قواعد الصفحة العامة (Global Styles)
-   ========================================
+    2. قواعد الصفحة العامة (Global Styles)
+    ========================================
 */
 html {
     scroll-behavior: smooth;
@@ -37,8 +37,8 @@ body {
 }
 
 /* ========================================
-   3. نظام الترجمة المطور (قائمة اللغات)
-   ========================================
+    3. نظام الترجمة المطور (قائمة اللغات)
+    ========================================
 */
 #custom-translate {
     position: fixed;
@@ -112,29 +112,31 @@ body {
 }
 
 /* ========================================
-   4. الهيكل الرئيسي (Container) - إصلاح الالتصاق
-   ========================================
+    4. الهيكل الرئيسي (Container) - إصلاح العرض للشاشات الكبيرة
+    ========================================
 */
 .container {
     width: 100%;
-    max-width: 480px; 
+    /* تم تعديل max-width ليتوسع في الشاشات الكبيرة ويصغر في الجوال */
+    max-width: 900px; 
     background: var(--light-peach);
     min-height: 100vh;
     margin: 0 auto;
-    /* حذفنا overflow-x: hidden لأنها تكسر الـ sticky */
     overflow: visible; 
     display: block; 
     box-sizing: border-box;
     position: relative;
+    /* ظل خفيف لإبراز المنيو على الشاشات الكبيرة */
+    box-shadow: 0 0 40px rgba(0,0,0,0.05);
 }
 
 /* ========================================
-   5. قسم الهيدر (Hero Section)
-   ========================================
+    5. قسم الهيدر (Hero Section)
+    ========================================
 */
 .hero-section {
     width: 100%;
-    height: 250px; 
+    height: 300px; /* زيادة الارتفاع قليلاً ليتناسب مع العرض الجديد */
     background-image: url('images/background.jpg');
     background-size: cover;
     background-position: center;
@@ -152,66 +154,71 @@ body {
 }
 
 /* ========================================
-   6. معلومات المطعم (Restaurant Info)
-   ========================================
+    6. معلومات المطعم (Restaurant Info)
+    ========================================
 */
 .restaurant-info {
     display: flex;
     flex-direction: column;
     align-items: center;
-    margin-top: -60px;
+    margin-top: -70px; /* تعديل الهامش ليناسب اللوجو الأكبر */
     position: relative;
     z-index: 10;
 }
 
 .logo {
-    width: 120px !important;
-    height: 120px !important;
+    width: 140px !important; /* تكبير اللوجو قليلاً للشاشات الكبيرة */
+    height: 140px !important;
     object-fit: cover;
-    border-radius: 25px;
-    border: 4px solid white;
+    border-radius: 30px;
+    border: 5px solid white;
     box-shadow: 0 4px 15px rgba(0,0,0,0.1);
     background-color: white;
 }
 
 .restaurant-info h1 {
     color: var(--primary-orange);
-    font-size: 22px;
-    margin: 10px 0 5px;
+    font-size: 28px; /* تكبير الخط ليكون أوضح على الشاشات */
+    margin: 15px 0 5px;
     text-align: center;
 }
 
 /* ========================================
-   7. شريط الأقسام (Sticky Categories) - الحل النهائي
-   ========================================
+    7. شريط الأقسام (Sticky Categories) - الحل النهائي
+    ========================================
 */
 .categories {
     display: flex;
     overflow-x: auto;
-    gap: 12px;
+    justify-content: center; /* توسيط الأيقونات في الشاشات العريضة */
+    gap: 15px;
     padding: 15px 20px;
     scrollbar-width: none;
-    /* التثبيت يحتاج top و z-index ووضع الـ sticky */
     position: -webkit-sticky; 
     position: sticky; 
     top: 0;
-    z-index: 9999; /* رفع الطبقة جداً ليكون فوق كل شيء */
+    z-index: 9999; 
     background: var(--light-peach);
     box-shadow: 0 6px 15px rgba(0,0,0,0.1);
 }
 
 .categories::-webkit-scrollbar { display: none; }
 
+/* للهواتف: نلغي التوسيط لكي يعمل السكرول الجانبي بشكل طبيعي */
+@media (max-width: 600px) {
+    .categories { justify-content: flex-start; }
+}
+
 .cat-item {
     text-align: center;
     text-decoration: none;
-    min-width: 80px;
+    min-width: 90px;
     flex: 0 0 auto;
 }
 
 .cat-item img {
-    width: 70px;
-    height: 70px;
+    width: 75px;
+    height: 75px;
     border-radius: 50%;
     border: 2px solid var(--primary-orange);
     padding: 2px;
@@ -229,25 +236,25 @@ body {
 }
 
 /* ========================================
-   8. بطاقات المنتجات (Product Cards)
-   ========================================
+    8. بطاقات المنتجات (Product Cards)
+    ========================================
 */
 .menu-section { 
-    padding: 10px 15px 30px; 
+    padding: 10px 25px 30px; 
 }
 
 .section-title {
     text-align: right;
     color: var(--dark-text);
-    font-size: 20px;
-    margin: 20px 0;
+    font-size: 22px;
+    margin: 25px 0;
     position: relative;
 }
 
 .section-title::after {
     content: '';
     display: block;
-    width: 40px;
+    width: 50px;
     height: 3px;
     background: var(--primary-orange);
     margin-top: 5px;
@@ -259,47 +266,53 @@ body {
     flex-direction: row-reverse;
     justify-content: space-between;
     align-items: center;
-    padding: 12px;
+    padding: 15px;
     background: var(--white);
-    border-radius: 20px;
-    margin-bottom: 15px;
-    box-shadow: 0 4px 10px rgba(74, 44, 26, 0.05);
+    border-radius: 25px;
+    margin-bottom: 20px;
+    box-shadow: 0 4px 15px rgba(74, 44, 26, 0.05);
     cursor: pointer;
+    transition: 0.2s;
 }
 
-.product-details { text-align: right; flex: 1; padding-right: 15px; }
+.product-card:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 8px 20px rgba(74, 44, 26, 0.1);
+}
+
+.product-details { text-align: right; flex: 1; padding-right: 20px; }
 
 .product-details h3 { 
     margin: 0 0 5px; 
     color: var(--primary-orange); 
-    font-size: 16px; 
+    font-size: 18px; 
 }
 
 .price { 
     background: var(--primary-orange); 
     color: var(--white); 
-    padding: 4px 12px; 
-    border-radius: 8px; 
+    padding: 5px 15px; 
+    border-radius: 10px; 
     font-weight: bold; 
-    font-size: 14px;
+    font-size: 15px;
     display: inline-block;
 }
 
 .product-img img { 
-    width: 85px; 
-    height: 85px; 
-    border-radius: 15px; 
+    width: 95px; 
+    height: 95px; 
+    border-radius: 18px; 
     object-fit: cover; 
 }
 
 /* ========================================
-   9. النافذة المنبثقة (Modal)
-   ========================================
+    9. النافذة المنبثقة (Modal)
+    ========================================
 */
 .modal {
     display: none; 
     position: fixed; 
-    z-index: 10001; /* يجب أن يكون أعلى من الـ Sticky */
+    z-index: 10001; 
     left: 0; top: 0; 
     width: 100%; height: 100%; 
     background: rgba(0,0,0,0.8);
@@ -310,9 +323,9 @@ body {
 
 .modal-content {
     background: var(--light-peach);
-    border-radius: 30px;
+    border-radius: 40px;
     width: 100%;
-    max-width: 400px;
+    max-width: 500px;
     overflow: hidden;
     position: relative;
     animation: zoomIn 0.3s ease;
@@ -323,20 +336,20 @@ body {
 
 #modalImg {
     width: 100%;
-    height: 250px;
+    height: 300px;
     object-fit: cover;
-    border-bottom: 3px solid var(--primary-orange);
+    border-bottom: 4px solid var(--primary-orange);
 }
 
 .modal-body {
-    padding: 20px;
+    padding: 25px;
     text-align: center;
 }
 
 #modalTitle {
     color: var(--primary-orange);
-    margin: 0 0 15px;
-    font-size: 24px;
+    margin: 0 0 20px;
+    font-size: 26px;
 }
 
 .size-item {
@@ -344,9 +357,9 @@ body {
     justify-content: space-between;
     align-items: center;
     background: white;
-    padding: 12px 20px;
-    margin-bottom: 8px;
-    border-radius: 15px;
+    padding: 15px 25px;
+    margin-bottom: 10px;
+    border-radius: 18px;
     font-weight: bold;
     color: var(--dark-text);
     border: 1px solid rgba(242, 109, 33, 0.1);
@@ -358,22 +371,22 @@ body {
 
 .close-btn {
     position: absolute;
-    top: 15px;
-    left: 15px;
+    top: 20px;
+    left: 20px;
     background: rgba(255,255,255,0.9);
-    width: 35px; height: 35px;
+    width: 40px; height: 40px;
     border-radius: 50%;
     display: flex;
     align-items: center;
     justify-content: center;
-    font-size: 24px;
+    font-size: 28px;
     cursor: pointer;
     z-index: 10;
 }
 
 /* ========================================
-   10. حماية الترجمة وإخفاء أشرطة جوجل
-   ========================================
+    10. حماية الترجمة وإخفاء أشرطة جوجل
+    ========================================
 */
 iframe.skiptranslate, 
 .skiptranslate, 
@@ -402,4 +415,4 @@ body {
     top: 0 !important;
 }
 
-/* نهاية الكود */
+/* نهاية الكود المصلح للشاشات الكبيرة */
