@@ -137,8 +137,43 @@ function checkOtherFormats(img) {
                 </div>`;
         }); // إغلاق القوس بشكل صحيح لضمان ظهور الأقسام التالية
         // بناء الفلافل
+        // بناء قسم الفلافل بأسعار مخصصة لكل صنف
         const falafelDiv = document.getElementById('falafel-list');
-        menuData.falafel.forEach(item => falafelDiv.innerHTML += createCard(item, false));
+        menuData.falafel.forEach(item => {
+            let pS, pM, pL, startP, htmlContent;
+
+            if (item === "سندوتش فلافل") {
+                pS = "5"; pM = "6"; pL = "7"; startP = "5";
+                htmlContent = `openItem('${item}', 'images/${item}.jpg', '${pS}', '${pM}', '${pL}')`;
+            } else if (item === "سندوتش بيض") {
+                pS = "5"; pL = "7"; startP = "5";
+                // عرض حجمين فقط للبيض
+                htmlContent = `showModal('${item}', 'images/${item}.jpg', '<div class=\"size-item\"><span>صغير</span><span>${pS} ريال</span></div><div class=\"size-item\"><span>كبير</span><span>${pL} ريال</span></div>')`;
+            } else if (item === "سندوتش فول") {
+                startP = "5";
+                htmlContent = `showModal('${item}', 'images/${item}.jpg', '<div class=\"size-item\"><span>عادي</span><span>5 ريال</span></div>')`;
+            } else if (item === "صحن فول") {
+                pS = "5"; pL = "10"; startP = "5";
+                htmlContent = `showModal('${item}', 'images/${item}.jpg', '<div class=\"size-item\"><span>صغير</span><span>${pS} ريال</span></div><div class=\"size-item\"><span>كبير</span><span>${pL} ريال</span></div>')`;
+            } else if (item === "صحن مشكل") {
+                startP = "25";
+                htmlContent = `showModal('${item}', 'images/${item}.jpg', '<div class=\"size-item\"><span>صحن كامل</span><span>25 ريال</span></div>')`;
+            } else {
+                pS = "5"; pM = "7"; pL = "10"; startP = "5";
+                htmlContent = `openItem('${item}', 'images/${item}.jpg', '${pS}', '${pM}', '${pL}')`;
+            }
+
+            falafelDiv.innerHTML += `
+                <div class="product-card" onclick="${htmlContent}">
+                    <div class="product-details">
+                        <h3>${item}</h3>
+                        <span class="price">من ${startP} ريال</span>
+                    </div>
+                    <div class="product-img">
+                        <img src="images/${item}.jpg" onerror="this.src='https://placehold.jp/150x150.png'">
+                    </div>
+                </div>`;
+        });
 
         // بناء البيتزا
         // بناء قسم البيتزا لجميع الأصناف الـ 9 بأسعار مخصصة
@@ -182,8 +217,33 @@ function checkOtherFormats(img) {
                 </div>`;
         });
         // بناء الكباب
+        // بناء قسم الكباب بأسعار مخصصة لكل صنف
         const kebabDiv = document.getElementById('kebab-list');
-        menuData.kebab.forEach(item => kebabDiv.innerHTML += createCard(item, false));
+        menuData.kebab.forEach(item => {
+            let startP, htmlContent;
+
+            if (item === "سندوتش كباب لحم" || item === "سندوتش كباب دجاج") {
+                startP = "10";
+                htmlContent = `showModal('${item}', 'images/${item}.jpg', '<div class=\"size-item\"><span>سندوتش</span><span>10 ريال</span></div>')`;
+            } else if (item === "صحن كباب لحم" || item === "صحن كباب دجاج") {
+                startP = "27";
+                htmlContent = `showModal('${item}', 'images/${item}.jpg', '<div class=\"size-item\"><span>صحن كامل</span><span>27 ريال</span></div>')`;
+            } else {
+                startP = "15";
+                htmlContent = `showModal('${item}', 'images/${item}.jpg', '<div class=\"size-item\"><span>عادي</span><span>15 ريال</span></div>')`;
+            }
+
+            kebabDiv.innerHTML += `
+                <div class="product-card" onclick="${htmlContent}">
+                    <div class="product-details">
+                        <h3>${item}</h3>
+                        <span class="price">${startP} ريال</span>
+                    </div>
+                    <div class="product-img">
+                        <img src="images/${item}.jpg" onerror="this.src='https://placehold.jp/150x150.png'">
+                    </div>
+                </div>`;
+        });
 
         // بناء الحلا والساخن
         const hotDiv = document.getElementById('hot-list');
@@ -228,6 +288,7 @@ function checkOtherFormats(img) {
 
 </body>
 </html>
+
 
 
 
