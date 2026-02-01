@@ -8,36 +8,41 @@
 </head>
 <body>
 
+<div id="custom-translate">
+    <div id="lang-menu-btn">
+        <img src="https://flagcdn.com/w40/sa.png" alt="Arabic">
+        <span>اللغة / Language</span>
+    </div>
+    <div id="lang-options">
+        <a href="javascript:void(0)" onclick="translatePage('ar')"><img src="https://flagcdn.com/w20/sa.png"> العربية</a>
+        <a href="javascript:void(0)" onclick="translatePage('en')"><img src="https://flagcdn.com/w20/us.png"> English</a>
+        <a href="javascript:void(0)" onclick="translatePage('zh-CN')"><img src="https://flagcdn.com/w20/cn.png"> 中文 (الصينية)</a>
+        <a href="javascript:void(0)" onclick="translatePage('hi')"><img src="https://flagcdn.com/w20/in.png"> हिन्दी (الهندية)</a>
+        <a href="javascript:void(0)" onclick="translatePage('id')"><img src="https://flagcdn.com/w20/id.png"> Indonesia</a>
+        <a href="javascript:void(0)" onclick="translatePage('ru')"><img src="https://flagcdn.com/w20/ru.png"> Русский (الروسية)</a>
+        <a href="javascript:void(0)" onclick="translatePage('tl')"><img src="https://flagcdn.com/w20/ph.png"> Tagalog (الفلبينية)</a>
+        <a href="javascript:void(0)" onclick="translatePage('en')"><img src="https://flagcdn.com/w20/ng.png"> English (النيجيرية)</a>
+        <a href="javascript:void(0)" onclick="translatePage('fr')"><img src="https://flagcdn.com/w20/fr.png"> Français</a>
+        <a href="javascript:void(0)" onclick="translatePage('tr')"><img src="https://flagcdn.com/w20/tr.png"> Türkçe</a>
+        <a href="javascript:void(0)" onclick="translatePage('ms')"><img src="https://flagcdn.com/w20/my.png"> Melayu (الماليزية)</a>
+        <a href="javascript:void(0)" onclick="translatePage('en')"><img src="https://flagcdn.com/w20/sg.png"> Singapore</a>
+        <a href="javascript:void(0)" onclick="translatePage('mn')"><img src="https://flagcdn.com/w20/mn.png"> المنغولية</a>
+        <a href="javascript:void(0)" onclick="translatePage('fa')"><img src="https://flagcdn.com/w20/ir.png"> فارسی (الإيرانية)</a>
+        <a href="javascript:void(0)" onclick="translatePage('ja')"><img src="https://flagcdn.com/w20/jp.png"> 日本語 (اليابانية)</a>
+    </div>
+</div>
+
+<div id="google_translate_element" style="display:none;"></div>
+
 <div class="container">
     <header class="hero-section">
         <div class="overlay"></div>
     </header>
 
     <div class="restaurant-info">
-    <img src="images/logo.jpg" id="mainLogo" class="logo" 
-         onerror="checkOtherFormats(this)">
-    <h1>ثمرة المذاق المنعش</h1>
-</div>
-
-<script>
-function checkOtherFormats(img) {
-    // قائمة بالأسماء المحتملة التي قد تكون رفعتها
-    const paths = [
-        'images/logo.png',
-        'images/Logo.jpg',
-        'images/Logo.png',
-        'images/لوجو.jpg',
-        'images/لوقو.jpg'
-        'images/الشعار.png',
-    ];
-    
-    let currentTry = img.getAttribute('data-try') || 0;
-    if (currentTry < paths.length) {
-        img.setAttribute('data-try', parseInt(currentTry) + 1);
-        img.src = paths[currentTry] + "?v=" + Math.random();
-    }
-}
-</script>
+        <img src="images/logo.jpg" id="mainLogo" class="logo" onerror="checkOtherFormats(this)">
+        <h1>ثمرة المذاق المنعش</h1>
+    </div>
 
     <nav class="categories">
         <a href="#juices" class="cat-item"><img src="images/cat-juice.jpg"><span>عصائر</span></a>
@@ -48,12 +53,12 @@ function checkOtherFormats(img) {
         <a href="#hot-drinks" class="cat-item"><img src="images/cat-hot.jpg"><span>حلا وساخن</span></a>
     </nav>
 
-    <div id="juices" class="menu-section"><h2 class="section-title">عصائر طازجة</h2><div id="juices-list"></div></div>
-    <div id="shawarma" class="menu-section"><h2 class="section-title">شاورما</h2><div id="shawarma-list"></div></div>
-    <div id="falafel" class="menu-section"><h2 class="section-title">فلافل</h2><div id="falafel-list"></div></div>
-    <div id="pizza" class="menu-section"><h2 class="section-title">بيتزا</h2><div id="pizza-list"></div></div>
-    <div id="kebab" class="menu-section"><h2 class="section-title">كباب</h2><div id="kebab-list"></div></div>
-    <div id="hot-drinks" class="menu-section"><h2 class="section-title">حلا وساخن</h2><div id="hot-list"></div></div>
+    <div id="juices" class="menu-section"><h2 class="section-title">عصائر طازجة</h2><div id="juices-list" class="product-grid"></div></div>
+    <div id="shawarma" class="menu-section"><h2 class="section-title">شاورما</h2><div id="shawarma-list" class="product-grid"></div></div>
+    <div id="falafel" class="menu-section"><h2 class="section-title">فلافل</h2><div id="falafel-list" class="product-grid"></div></div>
+    <div id="pizza" class="menu-section"><h2 class="section-title">بيتزا</h2><div id="pizza-list" class="product-grid"></div></div>
+    <div id="kebab" class="menu-section"><h2 class="section-title">كباب</h2><div id="kebab-list" class="product-grid"></div></div>
+    <div id="hot-drinks" class="menu-section"><h2 class="section-title">حلا وساخن</h2><div id="hot-list" class="product-grid"></div></div>
 </div>
 
 <div id="itemModal" class="modal">
@@ -67,8 +72,8 @@ function checkOtherFormats(img) {
     </div>
 </div>
 
-<script>
-    // 1. بيانات جميع الأصناف
+<script type="text/javascript">
+    // 1. مصفوفة البيانات
     const menuData = {
         juices: ["برتقال", "رمان", "بطيخ", "موز", "شمام", "زنجبيل بالحمضيات", "اناناس", "مانجو", "فرنسي", "سلطة فواكه", "طبقات", "فروله", "ليمون", "شمندر بالفواكه", "افكادو مكسرات", "مشكل لمسه", "فيتامين سي", "كيوي", "جوافه", "عنب", "بابايا", "اوريو", "عوار", "توت", "روز دي", "لوتس", "اصفهاني", "منجاوي", "كركديه", "جي مطور", "ملكي"],
         shawarma: ["عربي", "سندوتش صاروخ", "بطاطس فرايز"],
@@ -78,259 +83,115 @@ function checkOtherFormats(img) {
         hot: ["قهوه سعوديه", "شاي", "بودنق", "v60", "كوب قهوه سوداء"]
     };
 
-    // 2. وظيفة إنشاء "بطاقة الصنف"
-    function createCard(name, isJuice) {
-        let price = isJuice ? "8" : "15"; // سعر افتراضي للعرض فقط
-        let clickFunc = isJuice 
-            ? `openJuice('${name}', 'images/${name}.jpg', '8', '10', '12', '25', '30')`
-            : `openItem('${name}', 'images/${name}.jpg', '12', '18', '25')`;
-
-        return `
-            <div class="product-card" onclick="${clickFunc}">
-                <div class="product-details">
-                    <h3>${name}</h3>
-                    <span class="price">من ${price} ريال</span>
-                </div>
-                <div class="product-img">
-                    <img src="images/${name}.jpg" onerror="this.src='https://placehold.jp/150x150.png'">
-                </div>
-            </div>`;
+    // 2. معالجة صور اللوجو
+    function checkOtherFormats(img) {
+        const paths = ['images/logo.png', 'images/Logo.jpg', 'images/لوجو.jpg', 'images/لوقو.jpg'];
+        let currentTry = parseInt(img.getAttribute('data-try') || 0);
+        if (currentTry < paths.length) {
+            img.setAttribute('data-try', currentTry + 1);
+            img.src = paths[currentTry];
+        }
     }
 
-    // 3. بناء المنيو بالكامل عند تحميل الصفحة
+    // 3. بناء المنيو
     function initMenu() {
-        // بناء العصائر
+        // العصائر
         const juicesDiv = document.getElementById('juices-list');
-        menuData.juices.forEach(item => juicesDiv.innerHTML += createCard(item, true));
+        menuData.juices.forEach(item => {
+            juicesDiv.innerHTML += `<div class="product-card" onclick="openJuice('${item}', 'images/${item}.jpg', '8', '10', '12', '25', '30')">
+                <div class="product-details"><h3>${item}</h3><span class="price">من 8 ريال</span></div>
+                <div class="product-img"><img src="images/${item}.jpg" onerror="this.src='https://placehold.jp/150x150.png'"></div></div>`;
+        });
 
-        // بناء الشاورما
-        // بناء الشاورما بأسعار مخصصة (تعديل نهائي لجميع الأصناف)
+        // الشاورما
         const shawarmaDiv = document.getElementById('shawarma-list');
         menuData.shawarma.forEach(item => {
-            let priceS, priceM, priceL, startPrice;
+            let pS="15", pM="20", pL="25";
+            if(item.includes("صاروخ") || item.includes("بطاطس")) { pS="8"; pM="0"; pL="10"; }
+            shawarmaDiv.innerHTML += `<div class="product-card" onclick="openItem('${item}', 'images/${item}.jpg', '${pS}', '${pM}', '${pL}')">
+                <div class="product-details"><h3>${item}</h3><span class="price">من ${pS} ريال</span></div>
+                <div class="product-img"><img src="images/${item}.jpg" onerror="this.src='https://placehold.jp/150x150.png'"></div></div>`;
+        });
 
-            if (item === "سندوتش صاروخ" || item === "بطاطس فرايز") {
-                // الأسعار التي طلبتها للصاروخ والبطاطس
-                priceS = "8";
-                priceL = "10";
-                startPrice = "8";
-            } else if (item === "عربي") {
-                // الأسعار التي طلبتها للعربي
-                priceS = "15";
-                priceM = "20";
-                priceL = "25";
-                startPrice = "15";
-            } else {
-                // أي صنف آخر قد تضيفه مستقبلاً في هذا القسم
-                priceS = "12"; priceM = "15"; priceL = "20"; startPrice = "12";
-            }
-
-            shawarmaDiv.innerHTML += `
-                <div class="product-card" onclick="openItem('${item}', 'images/${item}.jpg', '${priceS}', '${priceM}', '${priceL}')">
-                    <div class="product-details">
-                        <h3>${item}</h3>
-                        <span class="price">من ${startPrice} ريال</span>
-                    </div>
-                    <div class="product-img">
-                        <img src="images/${item}.jpg" onerror="this.src='https://placehold.jp/150x150.png'">
-                    </div>
-                </div>`;
-        }); // إغلاق القوس بشكل صحيح لضمان ظهور الأقسام التالية
-        // بناء الفلافل
-        // بناء قسم الفلافل بأسعار مخصصة لكل صنف
-        // بناء قسم الفلافل الموحد
+        // الفلافل
         const falafelDiv = document.getElementById('falafel-list');
         menuData.falafel.forEach(item => {
-            let pS = "5", pM = "6", pL = "7", startP = "5";
-
-            if (item === "سندوتش فلافل") {
-                pS = "5"; pM = "6"; pL = "7";
-            } else if (item === "سندوتش بيض") {
-                pS = "5"; pM = "7"; pL = "7"; // الوسط والكبير نفس السعر
-            } else if (item === "سندوتش فول") {
-                pS = "5"; pM = "0"; pL = "10"; startP = "5";
-            } else if (item === "صحن فول") {
-                pS = "0"; pM = "0"; pL = "5"; startP = "5";
-            } else if (item === "صحن مشكل") {
-                pS = "0"; pM = "0"; pL = "25"; startP = "25";
-            }
-
-            falafelDiv.innerHTML += `
-                <div class="product-card" onclick="openItem('${item}', 'images/${item}.jpg', '${pS}', '${pM}', '${pL}')">
-                    <div class="product-details">
-                        <h3>${item}</h3>
-                        <span class="price">من ${startP} ريال</span>
-                    </div>
-                    <div class="product-img"><img src="images/${item}.jpg" onerror="this.src='https://placehold.jp/150x150.png'"></div>
-                </div>`;
+            let pS="5", pM="6", pL="7";
+            if(item==="صحن مشكل") { pS="25"; pM="0"; pL="0"; }
+            if(item==="صحن فول") { pS="5"; pM="0"; pL="10"; }
+            falafelDiv.innerHTML += `<div class="product-card" onclick="openItem('${item}', 'images/${item}.jpg', '${pS}', '${pM}', '${pL}')">
+                <div class="product-details"><h3>${item}</h3><span class="price">من ${pS} ريال</span></div>
+                <div class="product-img"><img src="images/${item}.jpg" onerror="this.src='https://placehold.jp/150x150.png'"></div></div>`;
         });
 
-        // بناء البيتزا
-        // بناء قسم البيتزا لجميع الأصناف الـ 9 بأسعار مخصصة
+        // البيتزا
         const pizzaDiv = document.getElementById('pizza-list');
         menuData.pizza.forEach(item => {
-            let pS, pM, pL, startP;
-
-            // تحديد سعر كل نوع بدقة
-            if (item === "بيبروني") {
-                pS = "23"; pL = "28"; startP = "23";
-            } else if (item === "سجق") {
-                pS = "18"; pL = "25"; startP = "18";
-            } else if (item === "خضار") {
-                pS = "15"; pL = "20"; startP = "15";
-            } else if (item === "رنش") {
-                pS = "23"; pL = "28"; startP = "23";
-            } else if (item === "باربكيو") {
-                pS = "23"; pL = "28"; startP = "23";
-            } else if (item === "فليمزو") {
-                pS = "23"; pL = "28"; startP = "23";
-            } else if (item === "دجاج") {
-                pS = "20"; pL = "25"; startP = "20";
-            } else if (item === "مشكل اجبان") {
-                pS = "20"; pL = "15"; startP = "15";
-            } else if (item === "نقانق") {
-                pS = "17"; pL = "23"; startP = "17";
-            } else {
-                // احتياط لأي صنف آخر
-                pS = "18"; pM = "28"; pL = "38"; startP = "18";
-            }
-
-            pizzaDiv.innerHTML += `
-                <div class="product-card" onclick="openItem('${item}', 'images/${item}.jpg', '${pS}', '${pM}', '${pL}')">
-                    <div class="product-details">
-                        <h3>${item}</h3>
-                        <span class="price">من ${startP} ريال</span>
-                    </div>
-                    <div class="product-img">
-                        <img src="images/${item}.jpg" onerror="this.src='https://placehold.jp/150x150.png'">
-                    </div>
-                </div>`;
+            let pS="15", pL="25";
+            if(item==="بيبروني" || item==="رنش" || item==="باربكيو") { pS="23"; pL="28"; }
+            pizzaDiv.innerHTML += `<div class="product-card" onclick="openItem('${item}', 'images/${item}.jpg', '${pS}', '0', '${pL}')">
+                <div class="product-details"><h3>${item}</h3><span class="price">من ${pS} ريال</span></div>
+                <div class="product-img"><img src="images/${item}.jpg" onerror="this.src='https://placehold.jp/150x150.png'"></div></div>`;
         });
-        // بناء الكباب
-        // بناء قسم الكباب بأسعار مخصصة لكل صنف
-        // بناء قسم الكباب الموحد
+
+        // الكباب
         const kebabDiv = document.getElementById('kebab-list');
         menuData.kebab.forEach(item => {
-            let pS = "0", pM = "0", pL = "10", startP = "10";
-
-            if (item.includes("صحن")) {
-                pS = "0"; pM = "0"; pL = "27"; startP = "27";
-            }
-
-            kebabDiv.innerHTML += `
-                <div class="product-card" onclick="openItem('${item}', 'images/${item}.jpg', '${pS}', '${pM}', '${pL}')">
-                    <div class="product-details">
-                        <h3>${item}</h3>
-                        <span class="price">${startP} ريال</span>
-                    </div>
-                    <div class="product-img"><img src="images/${item}.jpg" onerror="this.src='https://placehold.jp/150x150.png'"></div>
-                </div>`;
+            let pS="10", pL="0";
+            if(item.includes("صحن")) pS="27";
+            kebabDiv.innerHTML += `<div class="product-card" onclick="openItem('${item}', 'images/${item}.jpg', '${pS}', '0', '${pL}')">
+                <div class="product-details"><h3>${item}</h3><span class="price">${pS} ريال</span></div>
+                <div class="product-img"><img src="images/${item}.jpg" onerror="this.src='https://placehold.jp/150x150.png'"></div></div>`;
         });
 
-        // بناء الحلا والساخن
+        // الحلا والساخن
         const hotDiv = document.getElementById('hot-list');
-        menuData.hot.forEach(item => hotDiv.innerHTML += createCard(item, false));
+        menuData.hot.forEach(item => {
+            hotDiv.innerHTML += `<div class="product-card" onclick="openItem('${item}', 'images/${item}.jpg', '5', '0', '0')">
+                <div class="product-details"><h3>${item}</h3><span class="price">5 ريال</span></div>
+                <div class="product-img"><img src="images/${item}.jpg" onerror="this.src='https://placehold.jp/150x150.png'"></div></div>`;
+        });
     }
 
-    // 4. وظائف النافذة المنبثقة
+    // 4. دالات العرض والإغلاق
+    function openItem(name, img, pS, pM, pL) {
+        let html = "";
+        if (pS && pS !== "0" && pS !== "undefined") html += `<div class="size-item"><span>صغير / عادي</span><span>${pS} ريال</span></div>`;
+        if (pM && pM !== "0" && pM !== "undefined" && pM !== pS) html += `<div class="size-item"><span>وسط</span><span>${pM} ريال</span></div>`;
+        if (pL && pL !== "0" && pL !== "undefined" && pL !== pM) html += `<div class="size-item"><span>كبير</span><span>${pL} ريال</span></div>`;
+        showModal(name, img, html);
+    }
+
     function openJuice(name, img, pS, pM, pL, pG1, pG2) {
         showModal(name, img, `
             <div class="size-item"><span>صغير</span><span>${pS} ريال</span></div>
             <div class="size-item"><span>وسط</span><span>${pM} ريال</span></div>
             <div class="size-item"><span>كبير</span><span>${pL} ريال</span></div>
-            <div class="size-item"><span>جالون 1 لتر</span><span>${pG1} ريال</span></div>
-            <div class="size-item"><span>جالون 1.5 لتر</span><span>${pG2} ريال</span></div>
-        `);
+            <div class="size-item"><span>جالون 1لتر</span><span>${pG1} ريال</span></div>
+            <div class="size-item"><span>جالون 1.5لتر</span><span>${pG2} ريال</span></div>`);
     }
-
-    function openItem(name, img, pS, pM, pL) {
-    let sizesHtml = "";
-
-    // عرض الحجم الصغير إذا وجد سعر
-    if (pS && pS !== "0" && pS !== "undefined") {
-        sizesHtml += `<div class="size-item"><span>صغير / عادي</span><span>${pS} ريال</span></div>`;
-    }
-
-    // عرض الوسط فقط إذا كان مختلفاً عن الصغير وليس صفراً
-    if (pM && pM !== "0" && pM !== pS && pM !== "undefined") {
-        sizesHtml += `<div class="size-item"><span>وسط</span><span>${pM} ريال</span></div>`;
-    }
-
-    // عرض الكبير فقط إذا كان مختلفاً عن الوسط وليس صفراً
-    if (pL && pL !== "0" && pL !== pM && pL !== "undefined") {
-        sizesHtml += `<div class="size-item"><span>كبير</span><span>${pL} ريال</span></div>`;
-    }
-
-    // إرسال البيانات للنافذة المنبثقة
-    showModal(name, img, sizesHtml);
-}
 
     function showModal(name, img, content) {
-    const modal = document.getElementById('itemModal');
-    document.getElementById('modalTitle').innerText = name;
-    document.getElementById('modalImg').src = img;
-    document.getElementById('modalSizes').innerHTML = content;
-    
-    // إظهار النافذة وتفعيل خاصية التوسيط
-    modal.style.display = "flex";
-}
-
-    function closeModal() {
-    const modal = document.getElementById('itemModal');
-    modal.style.display = "none";
-}
-
-// تفعيل الإغلاق عند الضغط خارج البطاقة
-window.onclick = function(event) {
-    const modal = document.getElementById('itemModal');
-    if (event.target == modal) {
-        closeModal();
+        document.getElementById('modalTitle').innerText = name;
+        document.getElementById('modalImg').src = img;
+        document.getElementById('modalSizes').innerHTML = content;
+        document.getElementById('itemModal').style.display = "flex";
     }
-}
-    // تشغيل البناء
+
+    function closeModal() { document.getElementById('itemModal').style.display = "none"; }
+    window.onclick = function(event) { if (event.target == document.getElementById('itemModal')) closeModal(); }
+
+    // 5. محرك الترجمة
+    function googleTranslateElementInit() {
+        new google.translate.TranslateElement({pageLanguage: 'ar', autoDisplay: false}, 'google_translate_element');
+    }
+    function translatePage(langCode) {
+        var select = document.querySelector('select.goog-te-combo');
+        if (select) { select.value = langCode; select.dispatchEvent(new Event('change')); }
+    }
+
     initMenu();
 </script>
-
-    <script type="text/javascript">
-function googleTranslateElementInit() {
-  new google.translate.TranslateElement({
-    pageLanguage: 'ar', 
-    includedLanguages: 'en,hi,ur,tl,bn', // اللغات: إنجليزي، هندي، أوردو، فلبيني، بنغالي
-    layout: google.translate.TranslateElement.InlineLayout.SIMPLE,
-    autoDisplay: false
-  }, 'google_translate_element');
-}
-</script>
 <script type="text/javascript" src="//translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"></script>
-    
 </body>
-
-<body> <div id="translate-wrapper">
-        <div id="translate-btn">
-            <img src="https://cdn-icons-png.flaticon.com/512/197/197551.png" alt="Translate" width="30">
-        </div>
-        <div id="google_translate_element"></div>
-    </div>
-
-    <header>
-        ...
-    
 </html>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
