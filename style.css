@@ -16,12 +16,76 @@ body {
 }
 
 /* --- تنسيق زر الترجمة الـ 15 لغة الجديد --- */
+/* تنسيق الحاوية الرئيسية للترجمة */
 #custom-translate {
     position: fixed;
-    bottom: 25px;
+    top: 20px; /* جعلناه في الأعلى كما في صورتك */
     left: 20px;
-    z-index: 9999;
-    direction: ltr; /* لضمان ظهور العلم يسار النص */
+    z-index: 10000;
+    direction: ltr;
+}
+
+/* تنسيق الزر الرئيسي */
+#lang-menu-btn {
+    background: white;
+    padding: 8px 15px;
+    border-radius: 50px;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.15);
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    border: 1px solid #f26d21;
+}
+
+/* تنسيق البطاقة المنسدلة (الحل للمشكلة) */
+#lang-options-card {
+    display: none; /* مخفية افتراضياً */
+    position: absolute;
+    top: 50px;
+    left: 0;
+    background: white;
+    width: 200px;
+    max-height: 400px;
+    overflow-y: auto; /* إضافة سكرول إذا زادت اللغات */
+    border-radius: 15px;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+    padding: 10px 0;
+    animation: fadeIn 0.3s ease;
+}
+
+/* إظهار البطاقة عند تمرير الماوس على الزر */
+#custom-translate:hover #lang-options-card {
+    display: block;
+}
+
+#lang-options-card a {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 10px 20px;
+    text-decoration: none;
+    color: #4a2c1a;
+    font-size: 14px;
+    transition: 0.2s;
+    border-bottom: 1px solid #f9f9f9;
+}
+
+#lang-options-card a:hover {
+    background: #fff2e8;
+    color: #f26d21;
+}
+
+#lang-options-card img {
+    width: 20px;
+    height: auto;
+    border-radius: 2px;
+}
+
+/* إخفاء شريط جوجل الافتراضي تماماً لتنظيف الواجهة */
+.goog-te-banner-frame, #goog-gt-tt, .goog-te-balloon-frame { display: none !important; }
+body { top: 0 !important; }
+
 }
 
 #lang-menu-btn {
@@ -268,3 +332,4 @@ body {
     cursor: pointer;
     z-index: 10;
 }
+
