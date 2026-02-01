@@ -261,20 +261,25 @@ function checkOtherFormats(img) {
     modal.style.display = "flex";
 }
 
-    function openItem(name, img, pS, pM, pL) {
-    showModal(name, img, `
-        <div class="size-item"><span>صغير / عادي</span><span>${pS} ريال</span></div>
-        <div class="size-item"><span>وسط</span><span>${pM} ريال</span></div>
-        <div class="size-item"><span>كبير</span><span>${pL} ريال</span></div>
-    `);
+    function closeModal() {
+    const modal = document.getElementById('itemModal');
+    modal.style.display = "none";
 }
 
+// تفعيل الإغلاق عند الضغط خارج البطاقة
+window.onclick = function(event) {
+    const modal = document.getElementById('itemModal');
+    if (event.target == modal) {
+        closeModal();
+    }
+}
     // تشغيل البناء
     initMenu();
 </script>
 
 </body>
 </html>
+
 
 
 
