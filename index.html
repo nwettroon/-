@@ -148,11 +148,11 @@ function checkOtherFormats(img) {
             } else if (item === "سندوتش بيض") {
                 pS = "5"; pM = "7"; pL = "7"; // الوسط والكبير نفس السعر
             } else if (item === "سندوتش فول") {
-                pS = "5"; pM = "5"; pL = "5";
+                pS = "5"; pM = "0"; pL = "5";
             } else if (item === "صحن فول") {
-                pS = "5"; pM = "10"; pL = "10";
+                pS = "0"; pM = "0"; pL = "5"; startP = "5";
             } else if (item === "صحن مشكل") {
-                pS = "25"; pM = "25"; pL = "25"; startP = "25";
+                pS = "0"; pM = "0"; pL = "25"; startP = "25";
             }
 
             falafelDiv.innerHTML += `
@@ -211,10 +211,10 @@ function checkOtherFormats(img) {
         // بناء قسم الكباب الموحد
         const kebabDiv = document.getElementById('kebab-list');
         menuData.kebab.forEach(item => {
-            let pS = "10", pM = "10", pL = "10", startP = "10";
+            let pS = "0", pM = "0", pL = "10", startP = "10";
 
             if (item.includes("صحن")) {
-                pS = "27"; pM = "27"; pL = "27"; startP = "27";
+                pS = "0"; pM = "0"; pL = "27"; startP = "27";
             }
 
             kebabDiv.innerHTML += `
@@ -244,12 +244,26 @@ function checkOtherFormats(img) {
     }
 
     function openItem(name, img, pS, pM, pL) {
-        showModal(name, img, `
-            <div class="size-item"><span>صغير</span><span>${pS} ريال</span></div>
-            <div class="size-item"><span>وسط</span><span>${pM} ريال</span></div>
-            <div class="size-item"><span>كبير</span><span>${pL} ريال</span></div>
-        `);
+    let sizesHtml = "";
+
+    // عرض الحجم الصغير إذا وجد سعر
+    if (pS && pS !== "0" && pS !== "undefined") {
+        sizesHtml += `<div class="size-item"><span>صغير / عادي</span><span>${pS} ريال</span></div>`;
     }
+
+    // عرض الوسط فقط إذا كان مختلفاً عن الصغير وليس صفراً
+    if (pM && pM !== "0" && pM !== pS && pM !== "undefined") {
+        sizesHtml += `<div class="size-item"><span>وسط</span><span>${pM} ريال</span></div>`;
+    }
+
+    // عرض الكبير فقط إذا كان مختلفاً عن الوسط وليس صفراً
+    if (pL && pL !== "0" && pL !== pM && pL !== "undefined") {
+        sizesHtml += `<div class="size-item"><span>كبير</span><span>${pL} ريال</span></div>`;
+    }
+
+    // إرسال البيانات للنافذة المنبثقة
+    showModal(name, img, sizesHtml);
+}
 
     function showModal(name, img, content) {
     const modal = document.getElementById('itemModal');
@@ -279,6 +293,7 @@ window.onclick = function(event) {
 
 </body>
 </html>
+
 
 
 
