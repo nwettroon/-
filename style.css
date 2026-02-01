@@ -43,7 +43,7 @@ body {
 #custom-translate {
     position: fixed;
     top: 20px; 
-    left: 10px; /* تم تعديله لضمان عدم الاختفاء في طرف الشاشة */
+    left: 10px; 
     z-index: 10000;
     direction: ltr;
 }
@@ -112,18 +112,18 @@ body {
 }
 
 /* ========================================
-   4. الهيكل الرئيسي (Container) - حل مشكلة التناسب
+   4. الهيكل الرئيسي (Container) - إصلاح التناسق
    ========================================
 */
 .container {
     width: 100%;
-    max-width: 480px; /* ليظهر كأنه تطبيق في منتصف الجوال */
+    max-width: 480px; 
     background: var(--light-peach);
     min-height: 100vh;
     margin: 0 auto;
     overflow-x: hidden;
-    display: flex;
-    flex-direction: column;
+    /* تغيير النوع لضمان عمل الالتصاق (Sticky) */
+    display: block; 
     box-sizing: border-box;
     position: relative;
 }
@@ -182,20 +182,22 @@ body {
 }
 
 /* ========================================
-   7. شريط الأقسام (Sticky Categories)
+   7. شريط الأقسام (Sticky Categories) - إصلاح الالتصاق
    ========================================
 */
 .categories {
     display: flex;
     overflow-x: auto;
     gap: 12px;
-    padding: 20px;
+    padding: 15px 20px;
     scrollbar-width: none;
+    /* دعم الالتصاق لجميع المتصفحات */
+    position: -webkit-sticky; 
     position: sticky; 
     top: 0;
     z-index: 2000;
     background: var(--light-peach);
-    box-shadow: 0 4px 10px rgba(0,0,0,0.05);
+    box-shadow: 0 4px 10px rgba(0,0,0,0.1);
 }
 
 .categories::-webkit-scrollbar { display: none; }
@@ -388,7 +390,6 @@ iframe.skiptranslate,
     box-shadow: none !important;
 }
 
-/* ضمان عدم الإزاحة نهائياً */
 .goog-te-gadget {
     color: transparent !important;
 }
@@ -397,4 +398,9 @@ iframe.skiptranslate,
     display: none !important;
 }
 
-/* نهاية الكود */
+/* ضمان عدم الإزاحة العلوية */
+body {
+    top: 0 !important;
+}
+
+/* نهاية ملف CSS الكامل والمصلح */
