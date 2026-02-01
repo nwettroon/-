@@ -334,28 +334,23 @@ body {
     z-index: 10;
 }
 
-/* إخفاء شريط جوجل وأي فراغ علوي بشكل نهائي */
-html {
-    top: 0 !important;
+/* إخفاء شريط الترجمة العلوي والإطارات المنبثقة نهائياً */
+iframe.skiptranslate, 
+.skiptranslate, 
+#goog-gt-tt, 
+.goog-te-balloon-frame,
+#google_translate_element2 {
+    display: none !important;
+    visibility: hidden !important;
 }
 
+/* منع المتصفح من إزاحة المحتوى للأسفل */
 body {
     top: 0 !important;
     position: static !important;
 }
 
-.goog-te-banner-frame, 
-.goog-te-banner-frame.skiptranslate, 
-#goog-gt-tt, 
-.goog-te-balloon-frame, 
-.skiptranslate {
-    display: none !important;
-    visibility: hidden !important;
+html {
+    top: 0 !important;
 }
 
-/* إخفاء الإطار الذي يظهر حول الكلمات المترجمة */
-font {
-    background-color: transparent !important;
-    box-shadow: none !important;
-    position: static !important;
-}
