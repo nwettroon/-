@@ -334,3 +334,28 @@ body {
     z-index: 10;
 }
 
+/* إخفاء شريط جوجل وأي فراغ علوي بشكل نهائي */
+html {
+    top: 0 !important;
+}
+
+body {
+    top: 0 !important;
+    position: static !important;
+}
+
+.goog-te-banner-frame, 
+.goog-te-banner-frame.skiptranslate, 
+#goog-gt-tt, 
+.goog-te-balloon-frame, 
+.skiptranslate {
+    display: none !important;
+    visibility: hidden !important;
+}
+
+/* إخفاء الإطار الذي يظهر حول الكلمات المترجمة */
+font {
+    background-color: transparent !important;
+    box-shadow: none !important;
+    position: static !important;
+}
