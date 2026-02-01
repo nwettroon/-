@@ -1,3 +1,4 @@
+/* --- المتغيرات والقواعد العامة --- */
 :root {
     --primary-orange: #f26d21; /* البرتقالي الخاص بالهوية */
     --light-peach: #fff2e8;   /* لون الخلفية الكريمي */
@@ -5,10 +6,9 @@
     --white: #ffffff;
 }
 
-/* تحسين التنقل الانسيابي عند الضغط على الأقسام */
 html {
     scroll-behavior: smooth;
-    scroll-padding-top: 120px; /* لضمان عدم اختفاء العناوين خلف الشريط الثابت */
+    scroll-padding-top: 120px; 
 }
 
 body {
@@ -21,7 +21,7 @@ body {
     top: 0px !important;
 }
 
-/* --- 1. بطاقة الترجمة المنسدلة (حل مشكلة الزحمة في الأعلى) --- */
+/* --- 1. نظام الترجمة المطور (البطاقة المنسدلة الـ 15 لغة) --- */
 #custom-translate {
     position: fixed;
     top: 20px; 
@@ -51,14 +51,13 @@ body {
     object-fit: cover;
 }
 
-/* تصميم البطاقة المنسدلة */
 #lang-options-card {
     display: none; 
     position: absolute;
     top: 50px;
     left: 0;
     background: white;
-    width: 200px;
+    width: 220px;
     max-height: 400px;
     overflow-y: auto;
     border-radius: 15px;
@@ -67,7 +66,6 @@ body {
     animation: fadeIn 0.3s ease;
 }
 
-/* تظهر البطاقة فقط عند وضع الماوس أو الضغط */
 #custom-translate:hover #lang-options-card {
     display: block;
 }
@@ -95,30 +93,13 @@ body {
     border-radius: 2px;
 }
 
-/* إخفاء شريط جوجل المزعج تماماً */
+/* إخفاء شريط جوجل المزعج */
 .goog-te-banner-frame, #goog-gt-tt, .goog-te-balloon-frame, .goog-te-gadget-icon, .goog-logo-link { 
     display: none !important; 
 }
 .goog-te-gadget { color: transparent !important; }
 
-/* --- 2. شريط الأقسام الثابت (Sticky Navigation) --- */
-.categories {
-    display: flex;
-    overflow-x: auto;
-    gap: 12px;
-    padding: 15px 20px;
-    scrollbar-width: none;
-    position: sticky; /* لجعل الشريط يلتصق في الأعلى عند النزول */
-    top: 0;
-    z-index: 2000;
-    background: var(--light-peach);
-    box-shadow: 0 4px 10px rgba(0,0,0,0.05);
-    border-bottom: 1px solid rgba(242, 109, 33, 0.1);
-}
-
-.categories::-webkit-scrollbar { display: none; }
-
-/* --- 3. بقية تنسيقات الموقع الأساسية --- */
+/* --- 2. الهيكل الرئيسي والهيدر (إصلاح "خراب" الصورة) --- */
 .container {
     width: 100%;
     max-width: 450px;
@@ -128,14 +109,15 @@ body {
 
 .hero-section {
     width: 100%;
-    height: 250px; /* تحديد ارتفاع ثابت لكي لا تغطي الصورة الشاشة */
+    height: 250px; /* تحديد الارتفاع لمنع التمدد الطولي */
     background-image: url('images/background.jpg');
-    background-size: cover; /* لضمان ملء المساحة دون تمطط */
+    background-size: cover;
     background-position: center;
     position: relative;
     border-radius: 0 0 40px 40px;
     overflow: hidden;
 }
+
 .overlay {
     position: absolute;
     top: 0; left: 0;
@@ -162,6 +144,75 @@ body {
     background-color: white;
 }
 
+.restaurant-info h1 {
+    color: var(--primary-orange);
+    font-size: 22px;
+    margin: 10px 0 5px;
+}
+
+/* --- 3. شريط الأقسام الثابت (Sticky Navigation) --- */
+.categories {
+    display: flex;
+    overflow-x: auto;
+    gap: 12px;
+    padding: 20px;
+    scrollbar-width: none;
+    position: sticky; /* يلتصق في الأعلى عند النزول */
+    top: 0;
+    z-index: 2000;
+    background: var(--light-peach);
+    box-shadow: 0 4px 10px rgba(0,0,0,0.05);
+}
+
+.categories::-webkit-scrollbar { display: none; }
+
+.cat-item {
+    text-align: center;
+    text-decoration: none;
+    min-width: 80px;
+    flex: 0 0 auto;
+}
+
+.cat-item img {
+    width: 70px;
+    height: 70px;
+    border-radius: 50%;
+    border: 2px solid var(--primary-orange);
+    padding: 2px;
+    background: var(--white);
+    object-fit: cover;
+    transition: 0.3s;
+}
+
+.cat-item span {
+    display: block;
+    margin-top: 8px;
+    font-size: 14px;
+    font-weight: bold;
+    color: var(--dark-text);
+}
+
+/* --- 4. بطاقات الأصناف والمنتجات --- */
+.menu-section { padding: 10px 20px 30px; }
+
+.section-title {
+    text-align: right;
+    color: var(--dark-text);
+    font-size: 20px;
+    margin: 20px 0;
+    position: relative;
+}
+
+.section-title::after {
+    content: '';
+    display: block;
+    width: 40px;
+    height: 3px;
+    background: var(--primary-orange);
+    margin-top: 5px;
+    border-radius: 2px;
+}
+
 .product-card {
     display: flex;
     flex-direction: row-reverse;
@@ -171,10 +222,36 @@ body {
     background: var(--white);
     border-radius: 20px;
     margin-bottom: 15px;
-    box-shadow: 0 4px 10px rgba(0,0,0,0.05);
+    box-shadow: 0 4px 10px rgba(74, 44, 26, 0.05);
+    cursor: pointer;
 }
 
-/* --- 4. النافذة المنبثقة (Modal) --- */
+.product-details { text-align: right; flex: 1; padding-right: 15px; }
+
+.product-details h3 { 
+    margin: 0 0 5px; 
+    color: var(--primary-orange); 
+    font-size: 16px; 
+}
+
+.price { 
+    background: var(--primary-orange); 
+    color: var(--white); 
+    padding: 4px 12px; 
+    border-radius: 8px; 
+    font-weight: bold; 
+    font-size: 14px;
+    display: inline-block;
+}
+
+.product-img img { 
+    width: 85px; 
+    height: 85px; 
+    border-radius: 15px; 
+    object-fit: cover; 
+}
+
+/* --- 5. النافذة المنبثقة (Modal) --- */
 .modal {
     display: none; 
     position: fixed; 
@@ -184,12 +261,13 @@ body {
     background: rgba(0,0,0,0.8);
     align-items: center; 
     justify-content: center;
+    padding: 20px;
 }
 
 .modal-content {
     background: var(--light-peach);
     border-radius: 30px;
-    width: 90%;
+    width: 100%;
     max-width: 400px;
     overflow: hidden;
     position: relative;
@@ -206,6 +284,17 @@ body {
     border-bottom: 3px solid var(--primary-orange);
 }
 
+.modal-body {
+    padding: 20px;
+    text-align: center;
+}
+
+#modalTitle {
+    color: var(--primary-orange);
+    margin: 0 0 15px;
+    font-size: 24px;
+}
+
 .size-item {
     display: flex;
     justify-content: space-between;
@@ -215,6 +304,12 @@ body {
     margin-bottom: 8px;
     border-radius: 15px;
     font-weight: bold;
+    color: var(--dark-text);
+    border: 1px solid rgba(242, 109, 33, 0.1);
+}
+
+.size-item span:last-child {
+    color: var(--primary-orange);
 }
 
 .close-btn {
@@ -228,5 +323,6 @@ body {
     align-items: center;
     justify-content: center;
     font-size: 24px;
+    cursor: pointer;
+    z-index: 10;
 }
-
