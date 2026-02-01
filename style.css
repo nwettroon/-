@@ -1,4 +1,7 @@
-/* --- المتغيرات والقواعد العامة --- */
+/* ========================================
+   1. المتغيرات والألوان الأساسية (Root)
+   ========================================
+*/
 :root {
     --primary-orange: #f26d21; /* البرتقالي الخاص بالهوية */
     --light-peach: #fff2e8;   /* لون الخلفية الكريمي */
@@ -6,26 +9,41 @@
     --white: #ffffff;
 }
 
+/* ========================================
+   2. قواعد الصفحة العامة (Global Styles)
+   ========================================
+*/
 html {
     scroll-behavior: smooth;
-    scroll-padding-top: 120px; 
+    scroll-padding-top: 120px;
+    top: 0 !important;
+    margin: 0 !important;
+    padding: 0 !important;
 }
 
 body {
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
     background-color: var(--light-peach);
     margin: 0;
+    padding: 0;
     display: flex;
-    justify-content: center;
+    flex-direction: column;
+    align-items: center;
     color: var(--dark-text);
     top: 0px !important;
+    position: static !important;
+    width: 100%;
+    min-height: 100vh;
 }
 
-/* --- 1. نظام الترجمة المطور (البطاقة المنسدلة الـ 15 لغة) --- */
+/* ========================================
+   3. نظام الترجمة المطور (قائمة اللغات)
+   ========================================
+*/
 #custom-translate {
     position: fixed;
     top: 20px; 
-    left: 20px;
+    left: 10px; /* تم تعديله لضمان عدم الاختفاء في طرف الشاشة */
     z-index: 10000;
     direction: ltr;
 }
@@ -93,30 +111,30 @@ body {
     border-radius: 2px;
 }
 
-/* إخفاء شريط جوجل المزعج */
-/* إخفاء شريط جوجل العلوي (Banner) تماماً */
-.goog-te-banner-frame.skiptranslate, .goog-te-banner-frame {
-    display: none !important;
+/* ========================================
+   4. الهيكل الرئيسي (Container) - حل مشكلة التناسب
+   ========================================
+*/
+.container {
+    width: 100%;
+    max-width: 480px; /* ليظهر كأنه تطبيق في منتصف الجوال */
+    background: var(--light-peach);
+    min-height: 100vh;
+    margin: 0 auto;
+    overflow-x: hidden;
+    display: flex;
+    flex-direction: column;
+    box-sizing: border-box;
+    position: relative;
 }
 
-/* إخفاء الإزاحة التي يسببها شريط جوجل في أعلى الصفحة */
-body {
-    top: 0px !important;
-}
-
-/* إخفاء النافذة المنبثقة التي تظهر عند وضع الماوس على نص مترجم */
-#goog-gt-tt, .goog-te-balloon-frame, .skiptranslate {
-    display: none !important;
-}
-
-.goog-text-highlight {
-    background: none !important;
-    box-shadow: none !important;
-}
-
+/* ========================================
+   5. قسم الهيدر (Hero Section)
+   ========================================
+*/
 .hero-section {
     width: 100%;
-    height: 250px; /* تحديد الارتفاع لمنع التمدد الطولي */
+    height: 250px; 
     background-image: url('images/background.jpg');
     background-size: cover;
     background-position: center;
@@ -133,12 +151,17 @@ body {
     border-radius: 0 0 40px 40px;
 }
 
+/* ========================================
+   6. معلومات المطعم (Restaurant Info)
+   ========================================
+*/
 .restaurant-info {
     display: flex;
     flex-direction: column;
     align-items: center;
     margin-top: -60px;
     position: relative;
+    z-index: 10;
 }
 
 .logo {
@@ -155,16 +178,20 @@ body {
     color: var(--primary-orange);
     font-size: 22px;
     margin: 10px 0 5px;
+    text-align: center;
 }
 
-/* --- 3. شريط الأقسام الثابت (Sticky Navigation) --- */
+/* ========================================
+   7. شريط الأقسام (Sticky Categories)
+   ========================================
+*/
 .categories {
     display: flex;
     overflow-x: auto;
     gap: 12px;
     padding: 20px;
     scrollbar-width: none;
-    position: sticky; /* يلتصق في الأعلى عند النزول */
+    position: sticky; 
     top: 0;
     z-index: 2000;
     background: var(--light-peach);
@@ -199,8 +226,13 @@ body {
     color: var(--dark-text);
 }
 
-/* --- 4. بطاقات الأصناف والمنتجات --- */
-.menu-section { padding: 10px 20px 30px; }
+/* ========================================
+   8. بطاقات المنتجات (Product Cards)
+   ========================================
+*/
+.menu-section { 
+    padding: 10px 15px 30px; 
+}
 
 .section-title {
     text-align: right;
@@ -258,7 +290,10 @@ body {
     object-fit: cover; 
 }
 
-/* --- 5. النافذة المنبثقة (Modal) --- */
+/* ========================================
+   9. النافذة المنبثقة (Modal)
+   ========================================
+*/
 .modal {
     display: none; 
     position: fixed; 
@@ -334,49 +369,32 @@ body {
     z-index: 10;
 }
 
-/* إخفاء شريط الترجمة العلوي والإطارات المنبثقة نهائياً */
+/* ========================================
+   10. حماية الترجمة وإخفاء أشرطة جوجل
+   ========================================
+*/
 iframe.skiptranslate, 
 .skiptranslate, 
 #goog-gt-tt, 
 .goog-te-balloon-frame,
-#google_translate_element2 {
+#google_translate_element2,
+.goog-te-banner-frame {
     display: none !important;
     visibility: hidden !important;
 }
 
-/* منع المتصفح من إزاحة المحتوى للأسفل */
-body {
-    top: 0 !important;
-    position: static !important;
+.goog-text-highlight {
+    background: none !important;
+    box-shadow: none !important;
 }
 
-/* --- إصلاح تناسق الشاشة والجوانب --- */
-.container {
-    width: 100%;
-    max-width: 100%; /* لضمان ملء شاشة الجوال بالكامل دون نقص */
-    background: var(--light-peach);
-    min-height: 100vh;
-    margin: 0 auto;
-    overflow-x: hidden; /* لمنع الموقع من التحرك يميناً ويساراً */
-    display: flex;
-    flex-direction: column;
+/* ضمان عدم الإزاحة نهائياً */
+.goog-te-gadget {
+    color: transparent !important;
 }
 
-/* تعديل زر اللغة لضمان عدم اختفائه في طرف الشاشة */
-#custom-translate {
-    position: fixed;
-    top: 20px; 
-    left: 10px; /* زحزحة الزر قليلاً للداخل */
-    z-index: 10000;
+.goog-logo-link {
+    display: none !important;
 }
 
-/* ضمان أن البطاقات لا تلمس حواف الجوال */
-.menu-section {
-    padding: 10px 15px 30px; 
-}
-
-html {
-    top: 0 !important;
-}
-
-
+/* نهاية الكود */
