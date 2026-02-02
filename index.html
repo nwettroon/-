@@ -217,25 +217,56 @@
     }
 
     function updateUI() {
-        let count = cart.reduce((a, b) => a + b.quantity, 0);
-        let total = cart.reduce((a, b) => a + (b.price * b.quantity), 0);
-        document.getElementById('cart-count').innerText = count;
-        document.getElementById('cart-total-price').innerText = total;
-        
-        let container = document.getElementById('cart-items-container');
-        container.innerHTML = "";
-        cart.forEach(item => {
-            container.innerHTML += `
-                <div class="cart-item-row">
-                    <div><b>${item.name}</b> (${item.size})</div>
-                    <div class="qty-controls">
-                        <button onclick="changeQty('${item.name}', '${item.size}', ${item.price}, -1, '${item.type}')">-</button>
-                        <span>${item.quantity}</span>
-                        <button onclick="changeQty('${item.name}', '${item.size}', ${item.price}, 1, '${item.type}')">+</button>
-                    </div>
-                </div>`;
-        });
+    let count = cart.reduce((a, b) => a + b.quantity, 0);
+    let total = cart.reduce((a, b) => a + (b.price * b.quantity), 0);
+    document.getElementById('cart-count').innerText = count;
+    document.getElementById('cart-total-price').innerText = total;
+    
+    // قاموس رسالة التوجيه بـ 15 لغة (دقيق جداً)
+    const messages = {
+        'ar': "توجه إلى الكاشير للدفع",
+        'en': "Please proceed to the cashier for payment",
+        'zh-CN': "请到收银台付款",
+        'hi': "कृपया भुगतान के लिए कैशियर के पास जाएं",
+        'id': "Silakan pergi ke kasir untuk الدفع",
+        'ru': "Пожалуйста, пройдите к кассиру для оплаты",
+        'tl': "Mangyaring pumunta sa cashier para magbayad",
+        'fr': "Veuillez vous rendre à la caisse برای le paiement",
+        'tr': "Lütfen ödeme için kasaya gidiniz",
+        'ms': "Sila pergi ke juruwang untuk pembayaran",
+        'fa': "لطفاً برای پرداخت به صندوق مراجعه کنید",
+        'ja': "レジまでお越しください",
+        'mn': "Төлбөрөө кассанд очиж тушаана уу",
+        'vi': "Vui lòng đến quầy thu ngân để thanh toán",
+        'ur': "براہ کرم ادائیگی کے لیے کیشئر کے پاس جائیں"
+    };
+
+    // كود ذكي لمعرفة اللغة التي اختارها العميل حالياً من ترجمة جوجل
+    let currentLang = 'ar'; 
+    const combo = document.querySelector('select.goog-te-combo');
+    if (combo && combo.value) {
+        currentLang = combo.value;
     }
+
+    // اختيار الرسالة المناسبة بناءً على اللغة المكتشفة
+    let directionMsg = messages[currentLang] || messages['en']; // إذا لم يجد اللغة يختار الإنجليزية كاحتياط
+
+    let container = document.getElementById('cart-items-container');
+    // إضافة الرسالة في أعلى السلة قبل عرض الطلبات
+    container.innerHTML = `<div class="direction-notice">${directionMsg}</div>`;
+    
+    cart.forEach(item => {
+        container.innerHTML += `
+            <div class="cart-item-row">
+                <div><b>${item.name}</b> (${item.size})</div>
+                <div class="qty-controls">
+                    <button onclick="changeQty('${item.name}', '${item.size}', ${item.price}, -1, '${item.type}')">-</button>
+                    <span>${item.quantity}</span>
+                    <button onclick="changeQty('${item.name}', '${item.size}', ${item.price}, 1, '${item.type}')">+</button>
+                </div>
+            </div>`;
+    });
+}
 
     function toggleCartCard() {
         let card = document.getElementById('cartCard');
@@ -327,3 +358,4 @@
 <script type="text/javascript" src="//translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"></script>
 </body>
 </html>
+
