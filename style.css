@@ -415,4 +415,58 @@ body {
     top: 0 !important;
 }
 
-/* نهاية الكود المصلح للشاشات الكبيرة */
+/* ========================================
+    11. تعديل التصميم للشاشات الكبيرة (الصور الضخمة)
+    ========================================
+*/
+@media (min-width: 800px) {
+    .product-grid {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr); /* 3 أصناف في السطر الواحد */
+        gap: 30px;
+        padding: 20px;
+    }
+
+    .product-card {
+        flex-direction: column !important; /* وضع الصورة فوق النص */
+        height: auto;
+        text-align: center;
+        padding: 0;
+        overflow: hidden;
+        border-radius: 35px;
+        background: var(--white);
+        box-shadow: 0 10px 25px rgba(74, 44, 26, 0.08);
+    }
+
+    .product-img {
+        width: 100% !important;
+        height: 280px !important; /* تكبير الصورة جداً لتكون واضحة للزبائن */
+    }
+
+    .product-img img {
+        width: 100% !important;
+        height: 100% !important;
+        border-radius: 35px 35px 0 0 !important; /* تدوير الحواف العلوية فقط */
+        object-fit: cover;
+    }
+
+    .product-details {
+        text-align: center !important;
+        padding: 25px !important;
+        width: 100%;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .product-details h3 {
+        font-size: 24px !important; /* تكبير اسم الوجبة للقراءة من بعيد */
+        margin-bottom: 15px !important;
+    }
+
+    .price {
+        font-size: 18px !important;
+        padding: 10px 25px !important;
+        border-radius: 12px;
+    }
+}
