@@ -59,7 +59,11 @@ body {
     gap: 10px;
     border: 2px solid var(--primary-orange);
     font-weight: bold;
-    transition: 0.3s;
+    transition: 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+
+#lang-menu-btn:active {
+    transform: scale(0.9);
 }
 
 #lang-menu-btn img {
@@ -117,7 +121,6 @@ body {
 */
 .container {
     width: 100%;
-    /* تم تعديل max-width ليتوسع في الشاشات الكبيرة ويصغر في الجوال */
     max-width: 900px; 
     background: var(--light-peach);
     min-height: 100vh;
@@ -126,7 +129,6 @@ body {
     display: block; 
     box-sizing: border-box;
     position: relative;
-    /* ظل خفيف لإبراز المنيو على الشاشات الكبيرة */
     box-shadow: 0 0 40px rgba(0,0,0,0.05);
 }
 
@@ -136,7 +138,7 @@ body {
 */
 .hero-section {
     width: 100%;
-    height: 300px; /* زيادة الارتفاع قليلاً ليتناسب مع العرض الجديد */
+    height: 300px; 
     background-image: url('images/background.jpg');
     background-size: cover;
     background-position: center;
@@ -161,24 +163,29 @@ body {
     display: flex;
     flex-direction: column;
     align-items: center;
-    margin-top: -70px; /* تعديل الهامش ليناسب اللوجو الأكبر */
+    margin-top: -70px; 
     position: relative;
     z-index: 10;
 }
 
 .logo {
-    width: 140px !important; /* تكبير اللوجو قليلاً للشاشات الكبيرة */
+    width: 140px !important; 
     height: 140px !important;
     object-fit: cover;
     border-radius: 30px;
     border: 5px solid white;
     box-shadow: 0 4px 15px rgba(0,0,0,0.1);
     background-color: white;
+    transition: transform 0.5s ease;
+}
+
+.logo:hover {
+    transform: rotate(5deg) scale(1.05);
 }
 
 .restaurant-info h1 {
     color: var(--primary-orange);
-    font-size: 28px; /* تكبير الخط ليكون أوضح على الشاشات */
+    font-size: 28px; 
     margin: 15px 0 5px;
     text-align: center;
 }
@@ -190,7 +197,7 @@ body {
 .categories {
     display: flex;
     overflow-x: auto;
-    justify-content: center; /* توسيط الأيقونات في الشاشات العريضة */
+    justify-content: center; 
     gap: 15px;
     padding: 15px 20px;
     scrollbar-width: none;
@@ -204,7 +211,6 @@ body {
 
 .categories::-webkit-scrollbar { display: none; }
 
-/* للهواتف: نلغي التوسيط لكي يعمل السكرول الجانبي بشكل طبيعي */
 @media (max-width: 600px) {
     .categories { justify-content: flex-start; }
 }
@@ -214,6 +220,11 @@ body {
     text-decoration: none;
     min-width: 90px;
     flex: 0 0 auto;
+    transition: transform 0.2s ease;
+}
+
+.cat-item:active {
+    transform: scale(0.9);
 }
 
 .cat-item img {
@@ -224,7 +235,7 @@ body {
     padding: 2px;
     background: var(--white);
     object-fit: cover;
-    transition: 0.3s;
+    transition: 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
 }
 
 .cat-item span {
@@ -236,7 +247,7 @@ body {
 }
 
 /* ========================================
-    8. بطاقات المنتجات (Product Cards)
+    8. بطاقات المنتجات (Product Cards) + الحركات
     ========================================
 */
 .menu-section { 
@@ -272,12 +283,21 @@ body {
     margin-bottom: 20px;
     box-shadow: 0 4px 15px rgba(74, 44, 26, 0.05);
     cursor: pointer;
-    transition: 0.2s;
+    /* إضافة الانتقالات الناعمة */
+    transition: transform 0.3s cubic-bezier(0.34, 1.56, 0.64, 1), box-shadow 0.3s ease;
+    will-change: transform;
 }
 
+/* تأثير البروز عند اللمس أو المرور */
 .product-card:hover {
-    transform: translateY(-3px);
-    box-shadow: 0 8px 20px rgba(74, 44, 26, 0.1);
+    transform: translateY(-5px) scale(1.02);
+    box-shadow: 0 12px 25px rgba(74, 44, 26, 0.12);
+}
+
+/* تأثير الضغط (Feedback) لشاشات اللمس */
+.product-card:active {
+    transform: scale(0.96);
+    transition: transform 0.1s ease;
 }
 
 .product-details { text-align: right; flex: 1; padding-right: 20px; }
@@ -296,25 +316,50 @@ body {
     font-weight: bold; 
     font-size: 15px;
     display: inline-block;
+    transition: 0.3s ease;
+}
+
+.product-card:hover .price {
+    transform: rotate(-3deg);
+}
+
+.product-img {
+    position: relative;
+    overflow: hidden;
+    border-radius: 18px;
+    width: 95px; 
+    height: 95px; 
+}
+
+/* تأثير اللمعان Shine Effect */
+.product-img::after {
+    content: '';
+    position: absolute;
+    top: 0; left: -150%;
+    width: 50%; height: 100%;
+    background: linear-gradient(to right, rgba(255,255,255,0) 0%, rgba(255,255,255,0.4) 50%, rgba(255,255,255,0) 100%);
+    transform: skewX(-25deg);
+    transition: 0.7s;
+}
+
+.product-card:hover .product-img::after {
+    left: 150%;
 }
 
 .product-img img { 
     width: 100% !important;
     height: 100% !important;
-    border-radius: 18px; 
     object-fit: cover; 
-    /* --- خصائص تحسين الدقة ومنع التشوه --- */
-    image-rendering: -webkit-optimize-contrast; /* تحسين التباين والحدة في متصفحات Chrome و Safari */
-    image-rendering: auto;                      /* السماح للمتصفح باستخدام أفضل خوارزمية تنعيم */
-    backface-visibility: hidden;               /* منع الاهتزاز أو البكسلة أثناء الحركة */
-    transform: translateZ(0);                  /* إجبار كرت الشاشة على معالجة الصورة بدقة عالية */
+    image-rendering: -webkit-optimize-contrast; 
+    image-rendering: auto; 
+    backface-visibility: hidden; 
+    transform: translateZ(0); 
 }
 
-/* في الشاشة الكبيرة، نزيد حدة الصور أكثر */
 @media (min-width: 800px) {
     .product-img img {
         border-radius: 35px 35px 0 0 !important;
-        image-rendering: high-quality; /* فرض أعلى جودة ممكنة */
+        image-rendering: high-quality; 
     }
 }
 
@@ -328,10 +373,11 @@ body {
     z-index: 10001; 
     left: 0; top: 0; 
     width: 100%; height: 100%; 
-    background: rgba(0,0,0,0.8);
+    background: rgba(0,0,0,0.85);
     align-items: center; 
     justify-content: center;
     padding: 20px;
+    backdrop-filter: blur(5px); /* تعتيم الخلفية بالضباب */
 }
 
 .modal-content {
@@ -341,11 +387,11 @@ body {
     max-width: 500px;
     overflow: hidden;
     position: relative;
-    animation: zoomIn 0.3s ease;
+    animation: zoomIn 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
 }
 
 @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
-@keyframes zoomIn { from { transform: scale(0.8); opacity: 0; } to { transform: scale(1); opacity: 1; } }
+@keyframes zoomIn { from { transform: scale(0.85); opacity: 0; } to { transform: scale(1); opacity: 1; } }
 
 #modalImg {
     width: 100%;
@@ -376,17 +422,23 @@ body {
     font-weight: bold;
     color: var(--dark-text);
     border: 1px solid rgba(242, 109, 33, 0.1);
+    transition: 0.2s;
 }
 
-.size-item span:last-child {
-    color: var(--primary-orange);
+.size-item:hover {
+    background: var(--primary-orange);
+    color: white;
+}
+
+.size-item:hover span:last-child {
+    color: white;
 }
 
 .close-btn {
     position: absolute;
     top: 20px;
     left: 20px;
-    background: rgba(255,255,255,0.9);
+    background: rgba(255,255,255,0.95);
     width: 40px; height: 40px;
     border-radius: 50%;
     display: flex;
@@ -395,6 +447,12 @@ body {
     font-size: 28px;
     cursor: pointer;
     z-index: 10;
+    transition: 0.3s;
+}
+
+.close-btn:hover {
+    transform: rotate(90deg);
+    color: var(--primary-orange);
 }
 
 /* ========================================
@@ -435,13 +493,13 @@ body {
 @media (min-width: 800px) {
     .product-grid {
         display: grid;
-        grid-template-columns: repeat(3, 1fr); /* 3 أصناف في السطر الواحد */
+        grid-template-columns: repeat(3, 1fr); 
         gap: 30px;
         padding: 20px;
     }
 
     .product-card {
-        flex-direction: column !important; /* وضع الصورة فوق النص */
+        flex-direction: column !important; 
         height: auto;
         text-align: center;
         padding: 0;
@@ -453,13 +511,13 @@ body {
 
     .product-img {
         width: 100% !important;
-        height: 280px !important; /* تكبير الصورة جداً لتكون واضحة للزبائن */
+        height: 280px !important; 
     }
 
     .product-img img {
         width: 100% !important;
         height: 100% !important;
-        border-radius: 35px 35px 0 0 !important; /* تدوير الحواف العلوية فقط */
+        border-radius: 35px 35px 0 0 !important; 
         object-fit: cover;
     }
 
@@ -473,7 +531,7 @@ body {
     }
 
     .product-details h3 {
-        font-size: 24px !important; /* تكبير اسم الوجبة للقراءة من بعيد */
+        font-size: 24px !important; 
         margin-bottom: 15px !important;
     }
 
@@ -483,4 +541,3 @@ body {
         border-radius: 12px;
     }
 }
-
