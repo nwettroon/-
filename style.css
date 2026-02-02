@@ -618,26 +618,29 @@ body {
     ========================================
 */
 @media print {
+    /* إخفاء كل العناصر ما عدا الفاتورة */
     body * { visibility: hidden; }
     #printable-receipt, #printable-receipt * { visibility: visible; }
     
     #printable-receipt {
-        position: absolute;
-        left: 0;
-        top: 0;
-        width: 80mm; /* العرض الكامل للطابعة */
-        padding: 0;
-        margin: 0;
-        height: auto !important; /* هذا السطر يمنع سحب الورق الزائد */
-        overflow: hidden;
+        /* تغيير من absolute إلى relative هو المفتاح لبدء الطباعة من أول ملم */
+        position: relative !important; 
+        display: block !important;
+        width: 80mm;
+        padding: 0 !important;
+        margin: 0 !important;
+        /* سحب المحتوى للأعلى يدوياً لضمان إلغاء أي فراغ يضفه المتصفح */
+        margin-top: -10mm !important; 
+        height: auto !important;
+        overflow: visible;
         color: black;
         background: white;
         font-family: 'Arial', sans-serif;
     }
 
-    /* إلغاء أي هوامش تلقائية من الويندوز */
+    /* إجبار الطابعة على إلغاء الهوامش والتعامل مع الورق كمستمر */
     @page {
-        margin: 0;
+        margin: 0 !important;
         size: auto;
     }
 }
@@ -725,6 +728,7 @@ body {
 }
 
 /* باقي كود السلة الذي أرسلته لك سابقاً... */
+
 
 
 
