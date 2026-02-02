@@ -620,17 +620,27 @@ body {
 @media print {
     body * { visibility: hidden; }
     #printable-receipt, #printable-receipt * { visibility: visible; }
+    
     #printable-receipt {
         position: absolute;
         left: 0;
         top: 0;
-        width: 72mm; /* تقليل العرض قليلاً لضمان عدم خروج هوامش */
+        width: 80mm; /* العرض الكامل للطابعة */
         padding: 0;
         margin: 0;
+        height: auto !important; /* هذا السطر يمنع سحب الورق الزائد */
+        overflow: hidden;
         color: black;
         background: white;
-        font-family: 'Arial', sans-serif; /* تغيير الخط لخط أوضح للطابعات العادية */
+        font-family: 'Arial', sans-serif;
     }
+
+    /* إلغاء أي هوامش تلقائية من الويندوز */
+    @page {
+        margin: 0;
+        size: auto;
+    }
+}
     
     /* منع الفراغات الزائدة في نهاية الورقة */
     html, body {
@@ -715,5 +725,6 @@ body {
 }
 
 /* باقي كود السلة الذي أرسلته لك سابقاً... */
+
 
 
