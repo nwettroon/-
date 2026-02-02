@@ -633,12 +633,14 @@ body {
         text-align: center;
     }
     .main-receipt, .dept-voucher {
-        width: 100%;
-        page-break-after: always;
-        padding: 10px;
-        box-sizing: border-box;
-        border-bottom: 2px dashed black;
-    }
+    width: 100%;
+    page-break-after: always !important; /* يجبر المتصفح على إنهاء الورقة هنا */
+    page-break-inside: avoid;
+    padding: 10px;
+    box-sizing: border-box;
+    border-bottom: none; /* احذف الخط المنقط لأن المقص سيقوم بالمهمة */
+}
+    
 }
 
 /* إخفاء جوجل ترانسليت */
@@ -705,3 +707,4 @@ body {
 }
 
 /* باقي كود السلة الذي أرسلته لك سابقاً... */
+
