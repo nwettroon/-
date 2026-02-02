@@ -299,10 +299,23 @@ body {
 }
 
 .product-img img { 
-    width: 95px; 
-    height: 95px; 
+    width: 100% !important;
+    height: 100% !important;
     border-radius: 18px; 
     object-fit: cover; 
+    /* --- خصائص تحسين الدقة ومنع التشوه --- */
+    image-rendering: -webkit-optimize-contrast; /* تحسين التباين والحدة في متصفحات Chrome و Safari */
+    image-rendering: auto;                      /* السماح للمتصفح باستخدام أفضل خوارزمية تنعيم */
+    backface-visibility: hidden;               /* منع الاهتزاز أو البكسلة أثناء الحركة */
+    transform: translateZ(0);                  /* إجبار كرت الشاشة على معالجة الصورة بدقة عالية */
+}
+
+/* في الشاشة الكبيرة، نزيد حدة الصور أكثر */
+@media (min-width: 800px) {
+    .product-img img {
+        border-radius: 35px 35px 0 0 !important;
+        image-rendering: high-quality; /* فرض أعلى جودة ممكنة */
+    }
 }
 
 /* ========================================
@@ -470,3 +483,4 @@ body {
         border-radius: 12px;
     }
 }
+
