@@ -668,3 +668,40 @@ iframe.skiptranslate,
 body {
     top: 0 !important;
 }
+
+/* ========================================
+    التعديلات الجديدة (مكان السلة والرسالة المترجمة)
+   ======================================== */
+
+.direction-notice {
+    background: var(--primary-orange);
+    color: white;
+    padding: 15px;
+    border-radius: 15px;
+    margin-bottom: 20px;
+    text-align: center;
+    font-weight: bold;
+    font-size: 18px;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+}
+
+#cart-icon {
+    position: fixed;
+    top: 50%; 
+    left: 0; 
+    transform: translateY(-50%); 
+    width: 120px; 
+    height: 100px; 
+    background: var(--success-green);
+    border-radius: 0 45px 45px 0; 
+    display: flex;
+    flex-direction: column; 
+    align-items: center;
+    justify-content: center;
+    box-shadow: 5px 0 25px rgba(46, 204, 113, 0.4);
+    z-index: 9999;
+    cursor: pointer;
+    transition: 0.3s ease-in-out;
+}
+
+/* باقي كود السلة الذي أرسلته لك سابقاً... */
