@@ -3,10 +3,15 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>ثمرة المذاق المنعش</title>
+    <title>ثمرة المذاق المنعش - نظام الطلب الذاتي</title>
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
+
+<div id="cart-icon" onclick="toggleCartCard()">
+    <div class="cart-badge" id="cart-count">0</div>
+    <img src="https://cdn-icons-png.flaticon.com/512/3144/3144456.png" alt="Cart">
+</div>
 
 <div id="custom-translate">
     <div id="lang-menu-btn">
@@ -73,8 +78,19 @@
     </div>
 </div>
 
+<div id="cartCard" class="cart-card">
+    <div class="cart-card-header">
+        <h3>سلة الطلبات</h3>
+        <span onclick="toggleCartCard()" style="cursor:pointer; font-size: 24px;">&times;</span>
+    </div>
+    <div id="cart-items-container"></div>
+    <div class="cart-footer">
+        <div class="total-price">الإجمالي: <span id="cart-total-price">0</span> ريال</div>
+        <button class="checkout-btn" onclick="printOrder()">دفع وطباعة الفاتورة</button>
+    </div>
+</div>
+
 <script type="text/javascript">
-    // بيانات المنيو كاملة
     const menuData = {
         juices: ["برتقال", "رمان", "بطيخ", "موز", "شمام", "زنجبيل بالحمضيات", "اناناس", "مانجو", "فرنسي", "سلطة فواكه", "طبقات", "فروله", "ليمون", "شمندر بالفواكه", "افكادو مكسرات", "مشكل لمسه", "فيتامين سي", "كيوي", "جوافه", "عنب", "بابايا", "اوريو", "عوار", "توت", "روز دي", "لوتس", "اصفهاني", "منجاوي", "كركديه", "جي مطور", "ملكي"],
         shawarma: ["عربي", "سندوتش صاروخ", "بطاطس فرايز"],
@@ -83,6 +99,9 @@
         kebab: ["سندوتش كباب لحم", "سندوتش كباب دجاج", "صحن كباب لحم", "صحن كباب دجاج"],
         hot: ["قهوه سعوديه", "شاي", "بودنق", "v60", "كوب قهوه سوداء"]
     };
+
+    let cart = [];
+    let orderNumber = localStorage.getItem('orderNumber') ? parseInt(localStorage.getItem('orderNumber')) : 1;
 
     function checkOtherFormats(img) {
         const paths = ['images/logo.png', 'images/Logo.jpg', 'images/لوجو.jpg', 'images/لوقو.jpg', 'images/الشعار.png'];
@@ -94,7 +113,6 @@
     }
 
     function initMenu() {
-        // بناء العصائر
         const juicesDiv = document.getElementById('juices-list');
         menuData.juices.forEach(item => {
             juicesDiv.innerHTML += `<div class="product-card" onclick="openJuice('${item}', 'images/${item}.jpg', '8', '10', '13', '25', '30')">
@@ -102,80 +120,126 @@
                 <div class="product-details"><h3>${item}</h3><span class="price">من 8 ريال</span></div></div>`;
         });
 
-        // بناء الشاورما
         const shawarmaDiv = document.getElementById('shawarma-list');
         menuData.shawarma.forEach(item => {
             let pS="15", pM="20", pL="25";
             if(item.includes("صاروخ") || item.includes("بطاطس")) { pS="5"; pM="0"; pL="10"; }
-            shawarmaDiv.innerHTML += `<div class="product-card" onclick="openItem('${item}', 'images/${item}.jpg', '${pS}', '${pM}', '${pL}')">
+            shawarmaDiv.innerHTML += `<div class="product-card" onclick="openItem('${item}', 'images/${item}.jpg', '${pS}', '${pM}', '${pL}', 'shawarma')">
                 <div class="product-img"><img src="images/${item}.jpg" onerror="this.src='https://placehold.jp/150x150.png'"></div>
                 <div class="product-details"><h3>${item}</h3><span class="price">من ${pS} ريال</span></div></div>`;
         });
 
-        // بناء الفلافل
         const falafelDiv = document.getElementById('falafel-list');
         menuData.falafel.forEach(item => {
             let pS="5", pM="6", pL="7";
             if(item==="صحن مشكل") { pS="25"; pM="0"; pL="0"; }
             if(item==="صحن فول") { pS="5"; pM="0"; pL="10"; }
-            falafelDiv.innerHTML += `<div class="product-card" onclick="openItem('${item}', 'images/${item}.jpg', '${pS}', '${pM}', '${pL}')">
+            falafelDiv.innerHTML += `<div class="product-card" onclick="openItem('${item}', 'images/${item}.jpg', '${pS}', '${pM}', '${pL}', 'falafel')">
                 <div class="product-img"><img src="images/${item}.jpg" onerror="this.src='https://placehold.jp/150x150.png'"></div>
                 <div class="product-details"><h3>${item}</h3><span class="price">من ${pS} ريال</span></div></div>`;
         });
 
-        // بناء البيتزا
         const pizzaDiv = document.getElementById('pizza-list');
         menuData.pizza.forEach(item => {
             let pS="15", pL="25";
             if(item==="بيبروني" || item==="رنش" || item==="باربكيو") { pS="23"; pL="28"; }
-            pizzaDiv.innerHTML += `<div class="product-card" onclick="openItem('${item}', 'images/${item}.jpg', '${pS}', '0', '${pL}')">
+            pizzaDiv.innerHTML += `<div class="product-card" onclick="openItem('${item}', 'images/${item}.jpg', '${pS}', '0', '${pL}', 'pizza')">
                 <div class="product-img"><img src="images/${item}.jpg" onerror="this.src='https://placehold.jp/150x150.png'"></div>
                 <div class="product-details"><h3>${item}</h3><span class="price">من ${pS} ريال</span></div></div>`;
         });
 
-        // بناء الكباب - تم التعديل لتخصيص أسعار الصحون
         const kebabDiv = document.getElementById('kebab-list');
         menuData.kebab.forEach(item => {
             let pS = "10", pL = "0";
-            
-            // شرط تخصيص أسعار الصحون
-            if (item === "صحن كباب لحم") {
-                pS = "30"; 
-            } else if (item === "صحن كباب دجاج") {
-                pS = "27";
-            } else if (item.includes("صحن")) {
-                pS = "30"; // سعر احتياطي لأي صحن آخر
-            }
+            if (item === "صحن كباب لحم") pS = "30"; 
+            else if (item === "صحن كباب دجاج") pS = "27";
+            else if (item.includes("صحن")) pS = "30";
 
-            kebabDiv.innerHTML += `<div class="product-card" onclick="openItem('${item}', 'images/${item}.jpg', '${pS}', '0', '${pL}')">
+            kebabDiv.innerHTML += `<div class="product-card" onclick="openItem('${item}', 'images/${item}.jpg', '${pS}', '0', '${pL}', 'kebab')">
                 <div class="product-img"><img src="images/${item}.jpg" onerror="this.src='https://placehold.jp/150x150.png'"></div>
                 <div class="product-details"><h3>${item}</h3><span class="price">${pS} ريال</span></div></div>`;
         });
 
-        // بناء الحلا والساخن
         const hotDiv = document.getElementById('hot-list');
         menuData.hot.forEach(item => {
-            hotDiv.innerHTML += `<div class="product-card" onclick="openItem('${item}', 'images/${item}.jpg', '5', '0', '0')">
+            hotDiv.innerHTML += `<div class="product-card" onclick="openItem('${item}', 'images/${item}.jpg', '5', '0', '0', 'hot')">
                 <div class="product-img"><img src="images/${item}.jpg" onerror="this.src='https://placehold.jp/150x150.png'"></div>
                 <div class="product-details"><h3>${item}</h3><span class="price">5 ريال</span></div></div>`;
         });
     }
 
-    function openItem(name, img, pS, pM, pL) {
+    function openItem(name, img, pS, pM, pL, type) {
         let html = "";
-        if (pS && pS !== "0" && pS !== "undefined") html += `<div class="size-item"><span>صغير / عادي</span><span>${pS} ريال</span></div>`;
-        if (pM && pM !== "0" && pM !== "undefined" && pM !== pS) html += `<div class="size-item"><span>وسط</span><span>${pM} ريال</span></div>`;
-        if (pL && pL !== "0" && pL !== "undefined" && pL !== pM) html += `<div class="size-item"><span>كبير</span><span>${pL} ريال</span></div>`;
+        if (pS && pS !== "0") html += buildQtyControl(name, "صغير / عادي", pS, type);
+        if (pM && pM !== "0" && pM !== pS) html += buildQtyControl(name, "وسط", pM, type);
+        if (pL && pL !== "0" && pL !== pM) html += buildQtyControl(name, "كبير", pL, type);
         showModal(name, img, html);
     }
 
     function openJuice(name, img, pS, pM, pL, pG1, pG2) {
-        showModal(name, img, `
-            <div class="size-item"><span>صغير</span><span>${pS} ريال</span></div>
-            <div class="size-item"><span>وسط</span><span>${pM} ريال</span></div>
-            <div class="size-item"><span>كبير</span><span>${pL} ريال</span></div>
-            <div class="size-item"><span>جالون 1لتر</span><span>${pG1} ريال</span></div>
-            <div class="size-item"><span>جالون 1.5لتر</span><span>${pG2} ريال</span></div>`);
+        let html = buildQtyControl(name, "صغير", pS, 'juice');
+        html += buildQtyControl(name, "وسط", pM, 'juice');
+        html += buildQtyControl(name, "كبير", pL, 'juice');
+        html += buildQtyControl(name, "جالون 1لتر", pG1, 'juice');
+        html += buildQtyControl(name, "جالون 1.5لتر", pG2, 'juice');
+        showModal(name, img, html);
+    }
+
+    function buildQtyControl(name, size, price, type) {
+        let currentQty = getQty(name, size);
+        return `
+        <div class="size-item-control">
+            <span>${size} - ${price} ريال</span>
+            <div class="qty-controls">
+                <button onclick="changeQty('${name}', '${size}', ${price}, -1, '${type}')">-</button>
+                <span id="qty-${name.replace(/\s/g, '')}-${size}">${currentQty}</span>
+                <button onclick="changeQty('${name}', '${size}', ${price}, 1, '${type}')">+</button>
+            </div>
+        </div>`;
+    }
+
+    function getQty(name, size) {
+        let item = cart.find(i => i.name === name && i.size === size);
+        return item ? item.quantity : 0;
+    }
+
+    function changeQty(name, size, price, delta, type) {
+        let index = cart.findIndex(i => i.name === name && i.size === size);
+        if (index > -1) {
+            cart[index].quantity += delta;
+            if (cart[index].quantity <= 0) cart.splice(index, 1);
+        } else if (delta > 0) {
+            cart.push({ name, size, price, quantity: 1, type });
+        }
+        updateUI();
+        let qtySpan = document.getElementById(`qty-${name.replace(/\s/g, '')}-${size}`);
+        if(qtySpan) qtySpan.innerText = getQty(name, size);
+    }
+
+    function updateUI() {
+        let count = cart.reduce((a, b) => a + b.quantity, 0);
+        let total = cart.reduce((a, b) => a + (b.price * b.quantity), 0);
+        document.getElementById('cart-count').innerText = count;
+        document.getElementById('cart-total-price').innerText = total;
+        
+        let container = document.getElementById('cart-items-container');
+        container.innerHTML = "";
+        cart.forEach(item => {
+            container.innerHTML += `
+                <div class="cart-item-row">
+                    <div><b>${item.name}</b> (${item.size})</div>
+                    <div class="qty-controls">
+                        <button onclick="changeQty('${item.name}', '${item.size}', ${item.price}, -1, '${item.type}')">-</button>
+                        <span>${item.quantity}</span>
+                        <button onclick="changeQty('${item.name}', '${item.size}', ${item.price}, 1, '${item.type}')">+</button>
+                    </div>
+                </div>`;
+        });
+    }
+
+    function toggleCartCard() {
+        let card = document.getElementById('cartCard');
+        card.style.display = card.style.display === "flex" ? "none" : "flex";
     }
 
     function showModal(name, img, content) {
@@ -188,29 +252,73 @@
     function closeModal() { document.getElementById('itemModal').style.display = "none"; }
     window.onclick = function(event) { if (event.target == document.getElementById('itemModal')) closeModal(); }
 
-    function googleTranslateElementInit() {
-        new google.translate.TranslateElement({
-            pageLanguage: 'ar', 
-            autoDisplay: false 
-        }, 'google_translate_element');
+    function printOrder() {
+        if (cart.length === 0) return alert("السلة فارغة!");
+        const lang = document.documentElement.lang;
+        const msg = lang === 'ar' ? "توجه إلى الكاشير للدفع" : "Please proceed to the cashier for payment";
+        let total = document.getElementById('cart-total-price').innerText;
+
+        let printWindow = window.open('', '_blank');
+        let html = `<html><head><style>
+            body { font-family: sans-serif; text-align: center; width: 80mm; margin: 0 auto; padding: 10px; }
+            .receipt-header { border-bottom: 2px dashed #000; padding: 10px 0; margin-bottom: 10px; }
+            .item-line { display: flex; justify-content: space-between; padding: 5px 0; font-size: 14px; text-align: right; }
+            .total { border-top: 2px solid #000; margin-top: 10px; padding-top: 10px; font-weight: bold; font-size: 18px; }
+            .order-id { font-size: 24px; font-weight: 900; margin: 10px 0; }
+            .section-slip { page-break-before: always; border-top: 2px dashed #000; padding-top: 20px; margin-top: 20px; }
+        </style></head><body>
+            <div class="receipt-header">
+                <h2 style="margin:0;">ثمرة المذاق المنعش</h2>
+                <div class="order-id">رقم الطلب: #${orderNumber}</div>
+                <p style="font-weight:bold;">${msg}</p>
+                <p style="font-size:12px;">التاريخ: ${new Date().toLocaleString()}</p>
+            </div>`;
+
+        cart.forEach(item => {
+            html += `<div class="item-line"><span>${item.name} (${item.size}) x${item.quantity}</span><span>${item.price * item.quantity} ريال</span></div>`;
+        });
+        html += `<div class="total">الإجمالي: ${total} ريال</div>`;
+
+        const types = [...new Set(cart.map(i => i.type))];
+        types.forEach(t => {
+            html += `<div class="section-slip"><h3>قسم: ${t.toUpperCase()}</h3><div class="order-id">رقم الطلب: #${orderNumber}</div>`;
+            cart.filter(i => i.type === t).forEach(item => {
+                html += `<div class="item-line" style="font-size:16px;"><span>● ${item.name} (${item.size}) x${item.quantity}</span></div>`;
+            });
+            html += `</div>`;
+        });
+
+        html += `</body></html>`;
+        printWindow.document.write(html);
+        printWindow.document.close();
+        printWindow.focus();
+        setTimeout(() => { 
+            printWindow.print(); 
+            printWindow.close(); 
+            orderNumber++;
+            localStorage.setItem('orderNumber', orderNumber);
+            cart = []; 
+            updateUI(); 
+            if(document.getElementById('cartCard').style.display === "flex") toggleCartCard();
+        }, 500);
     }
-    
+
     function translatePage(langCode) {
         var select = document.querySelector('select.goog-te-combo');
         if (select) { 
             select.value = langCode; 
             select.dispatchEvent(new Event('change'));
-            if (langCode === 'ar') { 
-                setTimeout(function() { location.reload(); }, 300); 
-            }
+            if (langCode === 'ar') { setTimeout(function() { location.reload(); }, 300); }
         }
+    }
+
+    function googleTranslateElementInit() {
+        new google.translate.TranslateElement({pageLanguage: 'ar', autoDisplay: false}, 'google_translate_element');
     }
 
     setInterval(function() {
         var googleFrame = document.querySelector(".skiptranslate");
-        if (googleFrame) { 
-            googleFrame.style.display = "none"; 
-        }
+        if (googleFrame) { googleFrame.style.display = "none"; }
         document.body.style.top = "0px";
     }, 500);
 
