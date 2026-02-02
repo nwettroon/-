@@ -624,21 +624,29 @@ body {
         position: absolute;
         left: 0;
         top: 0;
-        width: 80mm;
+        width: 72mm; /* تقليل العرض قليلاً لضمان عدم خروج هوامش */
         padding: 0;
         margin: 0;
         color: black;
         background: white;
-        font-family: 'Courier New', Courier, monospace;
-        text-align: center;
+        font-family: 'Arial', sans-serif; /* تغيير الخط لخط أوضح للطابعات العادية */
     }
+    
+    /* منع الفراغات الزائدة في نهاية الورقة */
+    html, body {
+        height: auto !important;
+        margin: 0 !important;
+        padding: 0 !important;
+    }
+
     .main-receipt, .dept-voucher {
-    width: 100%;
-    page-break-after: always !important; /* يجبر المتصفح على إنهاء الورقة هنا */
-    page-break-inside: avoid;
-    padding: 10px;
-    box-sizing: border-box;
-    border-bottom: none; /* احذف الخط المنقط لأن المقص سيقوم بالمهمة */
+        width: 100%;
+        display: block;
+        page-break-after: always !important; 
+        page-break-inside: avoid;
+        padding: 5px 0; /* تقليل الحشو لتقصير الورقة */
+        border-bottom: none;
+    }
 }
     
 }
@@ -707,4 +715,5 @@ body {
 }
 
 /* باقي كود السلة الذي أرسلته لك سابقاً... */
+
 
