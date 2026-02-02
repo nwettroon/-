@@ -98,8 +98,8 @@
         const juicesDiv = document.getElementById('juices-list');
         menuData.juices.forEach(item => {
             juicesDiv.innerHTML += `<div class="product-card" onclick="openJuice('${item}', 'images/${item}.jpg', '8', '10', '13', '25', '30')">
-                <div class="product-details"><h3>${item}</h3><span class="price">من 8 ريال</span></div>
-                <div class="product-img"><img src="images/${item}.jpg" onerror="this.src='https://placehold.jp/150x150.png'"></div></div>`;
+                <div class="product-img"><img src="images/${item}.jpg" onerror="this.src='https://placehold.jp/150x150.png'"></div>
+                <div class="product-details"><h3>${item}</h3><span class="price">من 8 ريال</span></div></div>`;
         });
 
         // بناء الشاورما
@@ -108,8 +108,8 @@
             let pS="15", pM="20", pL="25";
             if(item.includes("صاروخ") || item.includes("بطاطس")) { pS="5"; pM="0"; pL="10"; }
             shawarmaDiv.innerHTML += `<div class="product-card" onclick="openItem('${item}', 'images/${item}.jpg', '${pS}', '${pM}', '${pL}')">
-                <div class="product-details"><h3>${item}</h3><span class="price">من ${pS} ريال</span></div>
-                <div class="product-img"><img src="images/${item}.jpg" onerror="this.src='https://placehold.jp/150x150.png'"></div></div>`;
+                <div class="product-img"><img src="images/${item}.jpg" onerror="this.src='https://placehold.jp/150x150.png'"></div>
+                <div class="product-details"><h3>${item}</h3><span class="price">من ${pS} ريال</span></div></div>`;
         });
 
         // بناء الفلافل
@@ -119,8 +119,8 @@
             if(item==="صحن مشكل") { pS="25"; pM="0"; pL="0"; }
             if(item==="صحن فول") { pS="5"; pM="0"; pL="10"; }
             falafelDiv.innerHTML += `<div class="product-card" onclick="openItem('${item}', 'images/${item}.jpg', '${pS}', '${pM}', '${pL}')">
-                <div class="product-details"><h3>${item}</h3><span class="price">من ${pS} ريال</span></div>
-                <div class="product-img"><img src="images/${item}.jpg" onerror="this.src='https://placehold.jp/150x150.png'"></div></div>`;
+                <div class="product-img"><img src="images/${item}.jpg" onerror="this.src='https://placehold.jp/150x150.png'"></div>
+                <div class="product-details"><h3>${item}</h3><span class="price">من ${pS} ريال</span></div></div>`;
         });
 
         // بناء البيتزا
@@ -129,35 +129,35 @@
             let pS="15", pL="25";
             if(item==="بيبروني" || item==="رنش" || item==="باربكيو") { pS="23"; pL="28"; }
             pizzaDiv.innerHTML += `<div class="product-card" onclick="openItem('${item}', 'images/${item}.jpg', '${pS}', '0', '${pL}')">
-                <div class="product-details"><h3>${item}</h3><span class="price">من ${pS} ريال</span></div>
-                <div class="product-img"><img src="images/${item}.jpg" onerror="this.src='https://placehold.jp/150x150.png'"></div></div>`;
+                <div class="product-img"><img src="images/${item}.jpg" onerror="this.src='https://placehold.jp/150x150.png'"></div>
+                <div class="product-details"><h3>${item}</h3><span class="price">من ${pS} ريال</span></div></div>`;
         });
 
         // بناء الكباب - تم التعديل لتخصيص أسعار الصحون
-const kebabDiv = document.getElementById('kebab-list');
-menuData.kebab.forEach(item => {
-    let pS = "10", pL = "0";
-    
-    // شرط تخصيص أسعار الصحون
-    if (item === "صحن كباب لحم") {
-        pS = "30"; 
-    } else if (item === "صحن كباب دجاج") {
-        pS = "27";
-    } else if (item.includes("صحن")) {
-        pS = "30"; // سعر احتياطي لأي صحن آخر
-    }
+        const kebabDiv = document.getElementById('kebab-list');
+        menuData.kebab.forEach(item => {
+            let pS = "10", pL = "0";
+            
+            // شرط تخصيص أسعار الصحون
+            if (item === "صحن كباب لحم") {
+                pS = "30"; 
+            } else if (item === "صحن كباب دجاج") {
+                pS = "27";
+            } else if (item.includes("صحن")) {
+                pS = "30"; // سعر احتياطي لأي صحن آخر
+            }
 
-    kebabDiv.innerHTML += `<div class="product-card" onclick="openItem('${item}', 'images/${item}.jpg', '${pS}', '0', '${pL}')">
-        <div class="product-details"><h3>${item}</h3><span class="price">${pS} ريال</span></div>
-        <div class="product-img"><img src="images/${item}.jpg" onerror="this.src='https://placehold.jp/150x150.png'"></div></div>`;
-});
+            kebabDiv.innerHTML += `<div class="product-card" onclick="openItem('${item}', 'images/${item}.jpg', '${pS}', '0', '${pL}')">
+                <div class="product-img"><img src="images/${item}.jpg" onerror="this.src='https://placehold.jp/150x150.png'"></div>
+                <div class="product-details"><h3>${item}</h3><span class="price">${pS} ريال</span></div></div>`;
+        });
 
         // بناء الحلا والساخن
         const hotDiv = document.getElementById('hot-list');
         menuData.hot.forEach(item => {
             hotDiv.innerHTML += `<div class="product-card" onclick="openItem('${item}', 'images/${item}.jpg', '5', '0', '0')">
-                <div class="product-details"><h3>${item}</h3><span class="price">5 ريال</span></div>
-                <div class="product-img"><img src="images/${item}.jpg" onerror="this.src='https://placehold.jp/150x150.png'"></div></div>`;
+                <div class="product-img"><img src="images/${item}.jpg" onerror="this.src='https://placehold.jp/150x150.png'"></div>
+                <div class="product-details"><h3>${item}</h3><span class="price">5 ريال</span></div></div>`;
         });
     }
 
@@ -219,6 +219,3 @@ menuData.kebab.forEach(item => {
 <script type="text/javascript" src="//translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"></script>
 </body>
 </html>
-
-
-
