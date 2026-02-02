@@ -1,0 +1,206 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>لوحة التحكم | ثمرة المذاق</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <style>
+        :root { --primary: #ff6b6b; --secondary: #00b894; --dark: #2d3436; --light: #f9f9f9; }
+        body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; background: var(--light); margin: 0; padding: 0; }
+        
+        /* الهيدر وشريط الأقسام */
+        header { background: white; padding: 20px; box-shadow: 0 2px 10px rgba(0,0,0,0.1); position: sticky; top: 0; z-index: 100; }
+        .category-bar { display: flex; gap: 10px; align-items: center; overflow-x: auto; padding-bottom: 10px; }
+        .cat-item { padding: 10px 25px; background: white; border: 2px solid var(--primary); border-radius: 30px; cursor: pointer; font-weight: bold; transition: 0.3s; white-space: nowrap; }
+        .cat-item.active { background: var(--primary); color: white; }
+        .add-btn { background: var(--secondary); color: white; border: none; width: 40px; height: 40px; border-radius: 50%; cursor: pointer; flex-shrink: 0; }
+
+        /* منطقة التحكم */
+        .container { max-width: 1000px; margin: 20px auto; padding: 0 20px; }
+        .section-box { background: white; padding: 20px; border-radius: 15px; margin-bottom: 20px; border: 1px solid #ddd; }
+        .section-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px; }
+
+        /* مدخلات البيانات */
+        input { padding: 12px; border: 1px solid #ddd; border-radius: 8px; margin-bottom: 10px; font-size: 16px; }
+        .variant-row { display: flex; gap: 10px; margin-bottom: 10px; background: #f1f2f6; padding: 10px; border-radius: 8px; }
+        
+        /* الأزرار */
+        button { cursor: pointer; transition: 0.3s; border-radius: 8px; font-weight: bold; }
+        .btn-save { background: var(--secondary); color: white; border: none; padding: 15px 30px; font-size: 18px; width: 100%; margin-top: 20px; }
+        .btn-add-size { background: #0984e3; color: white; border: none; padding: 8px 15px; margin-bottom: 15px; }
+        .btn-delete { background: #ff7675; color: white; border: none; padding: 5px 10px; }
+
+        /* شبكة الأصناف */
+        .items-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); gap: 15px; }
+        .item-card { background: #fff; border: 1px solid #eee; padding: 10px; border-radius: 12px; text-align: center; }
+        .item-card img { width: 80px; height: 80px; object-fit: cover; border-radius: 50%; }
+    </style>
+</head>
+<body>
+
+<header>
+    <div class="category-bar" id="categoryBar">
+        <button class="add-btn" onclick="addNewCategory()" title="إضافة قسم جديد"><i class="fa fa-plus"></i></button>
+    </div>
+</header>
+
+<div class="container">
+    <div id="categoryEditor" class="section-box" style="display:none;">
+        <h3>تعديل القسم: <span id="currentCatTitle"></span></h3>
+        <input type="text" id="catNameInput" placeholder="اسم القسم الجديد" style="width: 70%;">
+        <button class="btn-delete" onclick="deleteCategory()"><i class="fa fa-trash"></i> حذف القسم</button>
+    </div>
+
+    <div class="section-box">
+        <div class="section-header">
+            <h2>الأصناف في هذا القسم</h2>
+            <button class="btn-add-size" onclick="showItemForm()">+ إضافة صنف جديد</button>
+        </div>
+        
+        <div id="itemsDisplay" class="items-grid">
+            </div>
+    </div>
+
+    <div id="itemModal" class="section-box" style="display:none; border: 2px solid var(--primary);">
+        <h3>إضافة صنف جديد</h3>
+        <p style="color: #666; font-size: 0.9em;">* سيتم حفظ الصورة تلقائياً باسم: (اسم الصنف.jpg)</p>
+        <input type="text" id="newItemName" placeholder="اسم الصنف (مثلاً: رمان منعش)" style="width: 95%;">
+        
+        <div id="variantsList">
+            <label>الأحجام والأسعار:</label>
+            <div class="variant-row">
+                <input type="text" placeholder="الحجم (صغير)" class="v-size">
+                <input type="number" placeholder="السعر" class="v-price">
+                <button onclick="this.parentElement.remove()">✖</button>
+            </div>
+        </div>
+        <button class="btn-add-size" onclick="addVariantRow()">+ إضافة حجم/سعر آخر</button>
+        
+        <div style="display: flex; gap: 10px;">
+            <button class="btn-save" onclick="saveItemToList()">حفظ الصنف في القائمة</button>
+            <button onclick="hideItemForm()" style="background:#636e72; color:white; border:none; padding:10px; margin-top:20px; border-radius:8px;">إلغاء</button>
+        </div>
+    </div>
+
+    <button class="btn-save" style="background: #2d3436;" onclick="downloadDataJSON()">
+        <i class="fa fa-download"></i> تحميل ملف data.json النهائي
+    </button>
+</div>
+
+<script>
+    let appData = { categories: [] };
+    let currentCategoryIndex = 0;
+
+    // 1. إضافة قسم جديد
+    function addNewCategory() {
+        const name = prompt("أدخل اسم القسم الجديد:");
+        if (name) {
+            appData.categories.push({ name: name, items: [] });
+            renderCategories();
+        }
+    }
+
+    // 2. عرض الأقسام في الشريط العلوي
+    function renderCategories() {
+        const bar = document.getElementById('categoryBar');
+        const addBtn = bar.querySelector('.add-btn');
+        bar.innerHTML = '';
+        appData.categories.forEach((cat, index) => {
+            const btn = document.createElement('button');
+            btn.className = `cat-item ${index === currentCategoryIndex ? 'active' : ''}`;
+            btn.innerText = cat.name;
+            btn.onclick = () => { currentCategoryIndex = index; renderCategories(); renderItems(); };
+            bar.appendChild(btn);
+        });
+        bar.appendChild(addBtn);
+        
+        if(appData.categories.length > 0) {
+            document.getElementById('categoryEditor').style.display = 'block';
+            document.getElementById('currentCatTitle').innerText = appData.categories[currentCategoryIndex].name;
+            document.getElementById('catNameInput').value = appData.categories[currentCategoryIndex].name;
+        }
+        renderItems();
+    }
+
+    // 3. إضافة صف حجم جديد
+    function addVariantRow() {
+        const row = document.createElement('div');
+        row.className = 'variant-row';
+        row.innerHTML = `<input type="text" placeholder="الحجم" class="v-size"> 
+                         <input type="number" placeholder="السعر" class="v-price">
+                         <button onclick="this.parentElement.remove()">✖</button>`;
+        document.getElementById('variantsList').appendChild(row);
+    }
+
+    // 4. حفظ الصنف (تطبيق قاعدة اسم الصنف = اسم الصورة)
+    function saveItemToList() {
+        const name = document.getElementById('newItemName').value;
+        const variants = [];
+        document.querySelectorAll('.variant-row').forEach(row => {
+            const size = row.querySelector('.v-size').value;
+            const price = row.querySelector('.v-price').value;
+            if(size && price) variants.push({ size: size, price: parseFloat(price) });
+        });
+
+        if (name && variants.length > 0) {
+            const newItem = {
+                name: name,
+                image: `${name}.jpg`, // التسمية التلقائية
+                variants: variants
+            };
+            appData.categories[currentCategoryIndex].items.push(newItem);
+            hideItemForm();
+            renderItems();
+        } else {
+            alert("يرجى إكمال البيانات");
+        }
+    }
+
+    function renderItems() {
+        const display = document.getElementById('itemsDisplay');
+        display.innerHTML = '';
+        if(!appData.categories[currentCategoryIndex]) return;
+
+        appData.categories[currentCategoryIndex].items.forEach((item, idx) => {
+            const card = document.createElement('div');
+            card.className = 'item-card';
+            card.innerHTML = `
+                <img src="images/${item.image}" onerror="this.src='https://via.placeholder.com/80?text=No+Img'">
+                <h4>${item.name}</h4>
+                <p>${item.variants.length} أحجام</p>
+                <button class="btn-delete" onclick="deleteItem(${idx})">حذف</button>
+            `;
+            display.appendChild(card);
+        });
+    }
+
+    function deleteItem(idx) {
+        appData.categories[currentCategoryIndex].items.splice(idx, 1);
+        renderItems();
+    }
+
+    function deleteCategory() {
+        if(confirm("هل أنت متأكد من حذف القسم وكل أصنافه؟")) {
+            appData.categories.splice(currentCategoryIndex, 1);
+            currentCategoryIndex = 0;
+            renderCategories();
+        }
+    }
+
+    function showItemForm() { document.getElementById('itemModal').style.display = 'block'; }
+    function hideItemForm() { document.getElementById('itemModal').style.display = 'none'; }
+
+    // 5. تحميل ملف الـ JSON النهائي
+    function downloadDataJSON() {
+        const dataStr = JSON.stringify(appData, null, 2);
+        const dataUri = 'data:application/json;charset=utf-8,'+ encodeURIComponent(dataStr);
+        const linkElement = document.createElement('a');
+        linkElement.setAttribute('href', dataUri);
+        linkElement.setAttribute('download', 'data.json');
+        linkElement.click();
+    }
+</script>
+
+</body>
+</html>
